@@ -38,8 +38,8 @@
 
 		<!-- Oracle driver and data types -->
 		<dependency>
-			<groupId>com.oracle.jdbc</groupId>
-			<artifactId>ojdbc8</artifactId>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc11</artifactId>
 			<version>${oracle-driver.version}</version>
 			<optional>true</optional>
 		</dependency>

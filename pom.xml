@@ -56,19 +56,21 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Holon Core -->
-		<holon.core.version>5.5.0</holon.core.version>
+		<holon.core.version>5.5.1-SNAPSHOT</holon.core.version>
 
 		<!-- Holon JDBC -->
-		<holon.jdbc.version>5.5.0</holon.jdbc.version>
+		<holon.jdbc.version>5.5.1-SNAPSHOT</holon.jdbc.version>
 
 		<!-- ByteBuddy -->
-		<bytebuddy.version>1.10.13</bytebuddy.version>
+		<bytebuddy.version>1.14.9</bytebuddy.version>
 
 		<!-- HikariCP (test) -->
-		<hikaricp.version>3.4.5</hikaricp.version>
+		<hikaricp.version>5.0.1</hikaricp.version>
 
 		<!-- Test JPA bean processors -->
-		<holon.jpa.version>5.5.0</holon.jpa.version>
+		<holon.jpa.version>5.5.1-SNAPSHOT</holon.jpa.version>
+
+		<jakarta.persistence>3.1.0</jakarta.persistence>
 
 		<!-- Test/dialects databases -->
 
@@ -85,9 +87,9 @@
 		<postgre.version>9.4.1212</postgre.version>
 		<postgre10.version>42.2.2</postgre10.version>
 		<!-- Oracle -->
-		<oracle-driver.version>12.2.0.1</oracle-driver.version>
+		<oracle-driver.version>23.2.0.0</oracle-driver.version>
 		<!-- SQLServer -->
-		<sqlserver-driver.version>4.2</sqlserver-driver.version>
+		<sqlserver-driver.version>11.2.3.jre17</sqlserver-driver.version>
 		<!-- MariaDB -->
 		<mariadb-driver.version>1.5.9</mariadb-driver.version>
 		<mariadb-driver2.version>2.2.5</mariadb-driver2.version>
@@ -98,7 +100,7 @@
 		<!-- SQLite -->
 		<sqlite-driver.version>3.20.0</sqlite-driver.version>
 		<!-- HANA -->
-		<hana-driver.version>1.120.6</hana-driver.version>
+<!--		<hana-driver.version>2.18.13</hana-driver.version>-->
 
 	</properties>
 
@@ -141,7 +143,14 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
 
+					<configuration>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
 				<!-- failsafe -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>

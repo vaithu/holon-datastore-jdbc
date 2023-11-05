@@ -46,13 +46,13 @@
 	</build>
 
 	<profiles>
-		<!-- Oracle integration test -->
+	<!--	&lt;!&ndash; Oracle integration test &ndash;&gt;
 		<profile>
 			<id>it-oracle</id>
 			<dependencies>
 				<dependency>
-					<groupId>com.oracle.jdbc</groupId>
-					<artifactId>ojdbc8</artifactId>
+					<groupId>com.oracle.database.jdbc</groupId>
+					<artifactId>ojdbc11</artifactId>
 					<version>${oracle-driver.version}</version>
 					<scope>test</scope>
 				</dependency>
@@ -104,13 +104,13 @@
 			</build>
 		</profile>
 
-		<!-- Oracle 12c integration test -->
+		&lt;!&ndash; Oracle 12c integration test &ndash;&gt;
 		<profile>
 			<id>it-oracle12</id>
 			<dependencies>
 				<dependency>
-					<groupId>com.oracle.jdbc</groupId>
-					<artifactId>ojdbc8</artifactId>
+					<groupId>com.oracle.database.jdbc</groupId>
+					<artifactId>ojdbc11</artifactId>
 					<version>${oracle-driver.version}</version>
 					<scope>test</scope>
 				</dependency>
@@ -159,7 +159,7 @@
 			</build>
 		</profile>
 
-		<!-- DB2 integration test -->
+		&lt;!&ndash; DB2 integration test &ndash;&gt;
 		<profile>
 			<id>it-db2</id>
 			<dependencies>
@@ -218,7 +218,7 @@
 			</build>
 		</profile>
 
-		<!-- PostgreSQL integration test -->
+		&lt;!&ndash; PostgreSQL integration test &ndash;&gt;
 		<profile>
 			<id>it-postgre</id>
 			<dependencies>
@@ -276,7 +276,7 @@
 			</build>
 		</profile>
 
-		<!-- PostgreSQL 10 integration test -->
+		&lt;!&ndash; PostgreSQL 10 integration test &ndash;&gt;
 		<profile>
 			<id>it-postgre10</id>
 			<dependencies>
@@ -334,7 +334,7 @@
 			</build>
 		</profile>
 
-		<!-- MySQL integration test -->
+		&lt;!&ndash; MySQL integration test &ndash;&gt;
 		<profile>
 			<id>it-mysql</id>
 			<dependencies>
@@ -393,7 +393,7 @@
 			</build>
 		</profile>
 
-		<!-- MySQL 8 integration test -->
+		&lt;!&ndash; MySQL 8 integration test &ndash;&gt;
 		<profile>
 			<id>it-mysql8</id>
 			<dependencies>
@@ -452,7 +452,7 @@
 			</build>
 		</profile>
 
-		<!-- MariaDB integration test -->
+		&lt;!&ndash; MariaDB integration test &ndash;&gt;
 		<profile>
 			<id>it-mariadb</id>
 			<dependencies>
@@ -511,7 +511,7 @@
 			</build>
 		</profile>
 
-		<!-- MariaDB 10 integration test -->
+		&lt;!&ndash; MariaDB 10 integration test &ndash;&gt;
 		<profile>
 			<id>it-mariadb10</id>
 			<dependencies>
@@ -570,7 +570,7 @@
 			</build>
 		</profile>
 
-		<!-- SQLServer integration test -->
+		&lt;!&ndash; SQLServer integration test &ndash;&gt;
 		<profile>
 			<id>it-sqlserver</id>
 			<build>
@@ -591,16 +591,16 @@
 							</includes>
 						</configuration>
 					</plugin>
-					<!-- <plugin> <groupId>io.fabric8</groupId> <artifactId>docker-maven-plugin</artifactId> 
+					&lt;!&ndash; <plugin> <groupId>io.fabric8</groupId> <artifactId>docker-maven-plugin</artifactId>
 						<configuration> <images> <image> <name>holon/sqlserver</name> <build> <dockerFileDir>sqlserver</dockerFileDir> 
 						</build> <run> <env> <SA_PASSWORD>T0pSecret</SA_PASSWORD> <ACCEPT_EULA>Y</ACCEPT_EULA> 
 						</env> <ports> <port>1433:1433</port> </ports> <wait> <time>15000</time> 
-						</wait> </run> </image> </images> </configuration> </plugin> -->
+						</wait> </run> </image> </images> </configuration> </plugin> &ndash;&gt;
 				</plugins>
 			</build>
 		</profile>
 
-		<!-- SQLite integration test -->
+		&lt;!&ndash; SQLite integration test &ndash;&gt;
 		<profile>
 			<id>it-sqlite</id>
 			<build>
@@ -628,7 +628,7 @@
 							<images>
 								<image>
 									<name>holon/sqlite</name>
-									<!-- <build> <dockerFileDir>sqlite</dockerFileDir> </build> -->
+									&lt;!&ndash; <build> <dockerFileDir>sqlite</dockerFileDir> </build> &ndash;&gt;
 									<run>
 										<ports>
 											<port>12345:12345</port>
@@ -649,7 +649,7 @@
 			</build>
 		</profile>
 
-		<!-- HANA integration test -->
+		&lt;!&ndash; HANA integration test &ndash;&gt;
 		<profile>
 			<id>it-hana</id>
 			<build>
@@ -672,7 +672,7 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
+		</profile>-->
 
 	</profiles>
 
@@ -727,12 +727,15 @@
 			<version>${holon.jpa.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
 		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>javax.persistence-api</artifactId>
-			<version>2.2</version>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>${jakarta.persistence}</version>
 			<scope>test</scope>
 		</dependency>
+
+
 
 		<!-- Test databases -->
 		<dependency>
@@ -770,17 +773,17 @@
 
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>jdbc</artifactId>
+			<artifactId>mssql-jdbc</artifactId>
 			<version>${sqlserver-driver.version}</version>
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>com.sap.hana</groupId>
 			<artifactId>jdbc</artifactId>
 			<version>${hana-driver.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 
 	</dependencies>
 

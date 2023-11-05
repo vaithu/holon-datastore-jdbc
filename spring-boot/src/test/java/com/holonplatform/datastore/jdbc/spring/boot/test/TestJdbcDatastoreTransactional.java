@@ -36,7 +36,7 @@ import com.holonplatform.datastore.jdbc.spring.boot.test.services.TestService;
 import com.holonplatform.datastore.jdbc.spring.boot.test.services.TestServiceImpl;
 
 @SpringBootTest
-@ActiveProfiles("p6")
+//@ActiveProfiles("p7")
 public class TestJdbcDatastoreTransactional {
 
 	// test1

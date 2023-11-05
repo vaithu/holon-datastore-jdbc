@@ -1,87 +1,88 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.holon-platform.jdbc</groupId>
-		<artifactId>holon-datastore-jdbc-root</artifactId>
-		<version>5.5.1-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>com.holon-platform.jdbc</groupId>
+        <artifactId>holon-datastore-jdbc-root</artifactId>
+        <version>5.5.1-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>documentation-datastore-jdbc</artifactId>
-	<packaging>jar</packaging>
+    <artifactId>documentation-datastore-jdbc</artifactId>
+    <packaging>jar</packaging>
 
-	<name>${project.groupId}:${project.artifactId}</name>
-	<description>Holon JDBC Datastore documentation</description>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Holon JDBC Datastore documentation</description>
 
-	<url>https://holon-platform.com</url>
+    <url>https://holon-platform.com</url>
 
-	<properties>
-		<skipTests>true</skipTests>
-		<jacoco.skip>true</jacoco.skip>
-	</properties>
+    <properties>
+        <skipTests>true</skipTests>
+        <jacoco.skip>true</jacoco.skip>
+    </properties>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>${project.basedir}/src/docs/asciidoc</directory>
-			</resource>
-		</resources>
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/docs/asciidoc</directory>
+            </resource>
+        </resources>
 
-		<plugins>
-			<!-- Asciidoc reference documentation to HTML and PDF -->
-			<plugin>
-				<groupId>org.asciidoctor</groupId>
-				<artifactId>asciidoctor-maven-plugin</artifactId>
-			</plugin>
-			<!-- Assembly docs -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<appendAssemblyId>true</appendAssemblyId>
-					<finalName>${project.artifactId}-${project.version}</finalName>
-					<descriptorRefs>
-						<descriptorRef>reference-docs</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-				<executions>
-					<execution>
-						<id>assembly-docs</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+        <plugins>
+            <!-- Asciidoc reference documentation to HTML and PDF -->
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+            </plugin>
+            <!-- Assembly docs -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>true</appendAssemblyId>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    <descriptorRefs>
+                        <descriptorRef>reference-docs</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assembly-docs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.holon-platform.jdbc</groupId>
-			<artifactId>holon-datastore-jdbc</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.holon-platform.jdbc</groupId>
-			<artifactId>holon-datastore-jdbc-spring</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.holon-platform.jdbc</groupId>
-			<artifactId>holon-datastore-jdbc-spring-boot</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.holon-platform.jdbc</groupId>
+            <artifactId>holon-datastore-jdbc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.holon-platform.jdbc</groupId>
+            <artifactId>holon-datastore-jdbc-spring</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.holon-platform.jdbc</groupId>
+            <artifactId>holon-datastore-jdbc-spring-boot</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-		<!-- JPA API -->
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>javax.persistence-api</artifactId>
-			<version>2.2</version>
-			<optional>true</optional>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+        <!-- JPA API -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>${jakarta.persistence}</version>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

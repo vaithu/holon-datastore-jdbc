@@ -639,9 +639,9 @@ include::{examplesdir}/com/holonplatform/datastore/jdbc/examples/ExampleJdbcData
 
 ==== Expression resolvers priority
 
-According to the standard convention, the `javax.annotation.Priority` annotation can be used on `ExpressionResolver` classes to indicate in what order the expression resolvers bound to the same _type resolution pair_ (i.e. the expression type handled by a resolver and the target expression type into which it will be resolved) must be applied.
+According to the standard convention, the `jakarta.annotation.Priority` annotation can be used on `ExpressionResolver` classes to indicate in what order the expression resolvers bound to the same _type resolution pair_ (i.e. the expression type handled by a resolver and the target expression type into which it will be resolved) must be applied.
 
-The less is the `javax.annotation.Priority` number assigned to a resolver, the higher will be it's priority order.
+The less is the `jakarta.annotation.Priority` number assigned to a resolver, the higher will be it's priority order.
 
 All the default JDBC Datastore expression resolvers have the _minimum_ priority order, allowing to override their behavior and resolution strategies with custom expression resolvers with a higher assigned priority order (i.e. a priority number less then `Integer.MAX_VALUE`).
 
