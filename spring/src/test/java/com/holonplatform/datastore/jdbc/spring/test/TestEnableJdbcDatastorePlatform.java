@@ -22,12 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,9 +40,8 @@ import com.holonplatform.jdbc.DatabasePlatform;
 import com.holonplatform.jdbc.spring.EnableDataSource;
 
 @Transactional
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestEnableJdbcDatastorePlatform.Config.class)
-public class TestEnableJdbcDatastorePlatform {
+@SpringJUnitConfig(classes = TestEnableJdbcDatastorePlatform.Config.class)
+class TestEnableJdbcDatastorePlatform {
 
 	@Configuration
 	@PropertySource("test.properties")
@@ -65,7 +62,7 @@ public class TestEnableJdbcDatastorePlatform {
 
 	@Transactional
 	@Test
-	public void testDatastore() {
+	void testDatastore() {
 
 		assertNotNull(datastore);
 

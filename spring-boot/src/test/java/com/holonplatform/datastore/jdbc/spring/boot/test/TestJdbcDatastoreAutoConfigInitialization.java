@@ -39,7 +39,7 @@ import com.holonplatform.spring.ScopeTenant;
 
 @SpringBootTest
 @ActiveProfiles("p1")
-public class TestJdbcDatastoreAutoConfigInitialization {
+class TestJdbcDatastoreAutoConfigInitialization {
 
 	private static final ThreadLocal<String> CURRENT_TENANT_ID = new ThreadLocal<>();
 	
@@ -70,7 +70,7 @@ public class TestJdbcDatastoreAutoConfigInitialization {
 	private ApplicationContext appCtx;
 
 	@Test
-	public void testConfig() {
+	void testConfig() {
 		try {
 			CURRENT_TENANT_ID.set("X");
 			Datastore ds = appCtx.getBean(Datastore.class);

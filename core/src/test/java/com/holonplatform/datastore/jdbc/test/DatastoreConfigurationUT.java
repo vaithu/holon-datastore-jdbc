@@ -32,18 +32,18 @@ import com.holonplatform.datastore.jdbc.test.config.TestCommodity;
 import com.holonplatform.jdbc.DataSourceBuilder;
 import com.holonplatform.jdbc.DatabasePlatform;
 
-public class DatastoreConfigurationUT {
+class DatastoreConfigurationUT {
 
 	private Datastore datastore;
 
 	@BeforeEach
-	public void initDatastore() {
+	void initDatastore() {
 		DataSource dataSource = DataSourceBuilder.builder().url("jdbc:h2:mem:cfgdb").username("sa").build();
 		datastore = JdbcDatastore.builder().dataSource(dataSource).build();
 	}
 
 	@Test
-	public void testConfig() {
+	void testConfig() {
 
 		assertTrue(((JdbcDatastoreCommodityContext) datastore).getDatabase().isPresent());
 		assertEquals(DatabasePlatform.H2, ((JdbcDatastoreCommodityContext) datastore).getDatabase().get());

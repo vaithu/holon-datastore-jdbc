@@ -20,18 +20,18 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TAR
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_CODE;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_TEXT;
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.holonplatform.core.datastore.relational.RelationalTarget;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.datastore.relational.SubQuery;
 import com.holonplatform.core.property.PathProperty;
 
-public class SubQueryTest extends AbstractJdbcDatastoreSuiteTest {
+class SubQueryTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testSubQuery() {
+	void testSubQuery() {
 
 		long count = getDatastore().query().target(NAMED_TARGET)
 				.filter(KEY.in(
@@ -57,7 +57,7 @@ public class SubQueryTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testSubQueryExplicitAlias() {
+	void testSubQueryExplicitAlias() {
 
 		final RelationalTarget<String> AT = RelationalTarget.of(NAMED_TARGET).alias("parent");
 		final PathProperty<Long> A_KEY = AT.property(KEY);

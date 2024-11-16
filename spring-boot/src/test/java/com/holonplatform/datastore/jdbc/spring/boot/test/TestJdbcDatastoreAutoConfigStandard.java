@@ -39,7 +39,7 @@ import com.holonplatform.jdbc.DatabasePlatform;
 
 @SpringBootTest
 @ActiveProfiles("p1")
-public class TestJdbcDatastoreAutoConfigStandard {
+class TestJdbcDatastoreAutoConfigStandard {
 
 	@Configuration
 	@EnableAutoConfiguration
@@ -57,7 +57,7 @@ public class TestJdbcDatastoreAutoConfigStandard {
 
 	@Transactional
 	@Test
-	public void testDatastore() {
+	void testDatastore() {
 
 		assertNotNull(datastore);
 

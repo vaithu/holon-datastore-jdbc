@@ -19,15 +19,13 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.DBL;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.KEY;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.beans.DataPath;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.datastore.DataTarget;
 import com.holonplatform.core.datastore.Datastore.OperationResult;
 import com.holonplatform.core.datastore.Datastore.OperationType;
@@ -61,7 +59,7 @@ public class H2Test extends AbstractDatabaseSuiteTest {
 	}
 
 	@Test
-	public void testAutoIncrement() {
+	void testAutoIncrement() {
 		test(datastore -> {
 			inTransaction(() -> {
 
@@ -104,7 +102,7 @@ public class H2Test extends AbstractDatabaseSuiteTest {
 	}
 
 	@Test
-	public void testCustomFunction() {
+	void testCustomFunction() {
 		test(datastore -> {
 			String result = datastore.query().withExpressionResolver(new IfNullFunctionResolver()).target(NAMED_TARGET)
 					.filter(KEY.eq(1L)).findOne(new IfNullFunction<>(STR, "(fallback)")).orElse(null);
@@ -114,7 +112,7 @@ public class H2Test extends AbstractDatabaseSuiteTest {
 	}
 
 	@Test
-	public void testCustomFunctionExpression() {
+	void testCustomFunctionExpression() {
 		test(datastore -> {
 			Long result = datastore.query().withExpressionResolver(IfNullFunctionExpression.RESOLVER)
 					.target(NAMED_TARGET).filter(new IfNullFunctionExpression<>(DBL, 12.3d).gt(12d)).findOne(KEY)
@@ -132,7 +130,7 @@ public class H2Test extends AbstractDatabaseSuiteTest {
 	}
 
 	@Test
-	public void testBeanAutoIncrement() {
+	void testBeanAutoIncrement() {
 		test(datastore -> {
 			inTransaction(() -> {
 
@@ -153,7 +151,7 @@ public class H2Test extends AbstractDatabaseSuiteTest {
 	}
 
 	@Test
-	public void testExpressionContext() {
+	void testExpressionContext() {
 		test(datastore -> {
 			List<Long> res = getDatastore().query().withExpressionResolver(new MyEqualPredicateResolver())
 					.target(NAMED_TARGET).filter(new MyEqualPredicate<>(STR, "Two")).list(KEY);
@@ -201,7 +199,7 @@ public class H2Test extends AbstractDatabaseSuiteTest {
 	}*/
 
 	@Test
-	public void testAlias() {
+	void testAlias() {
 		test(datastore -> {
 			PropertyBox value = getDatastore().query(A_TARGET).filter(A_CODE.eq(1L)).findOne(A_SET).orElse(null);
 			assertNotNull(value);

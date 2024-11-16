@@ -33,13 +33,11 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIE
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TIME;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TMS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.datastore.Datastore.OperationType;
 import com.holonplatform.core.datastore.DefaultWriteOption;
 import com.holonplatform.core.exceptions.DataAccessException;
@@ -47,10 +45,10 @@ import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.datastore.jdbc.test.data.TestEnum;
 import com.holonplatform.datastore.jdbc.test.data.TestSampleData;
 
-public class SaveTest extends AbstractJdbcDatastoreSuiteTest {
+class SaveTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testSaveAsInsert() {
+	void testSaveAsInsert() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES).set(KEY, 401L).set(STR, "k401").set(DBL, 7.45)
@@ -82,7 +80,7 @@ public class SaveTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testSaveAsUpdate() {
+	void testSaveAsUpdate() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES).set(KEY, 1L).set(STR, "k401").set(DBL, 7.45)
@@ -114,7 +112,7 @@ public class SaveTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testSaveNoId() {
+	void testSaveNoId() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES_NOID).set(KEY, 501L).set(STR, "k501").set(NBOOL, true)
@@ -143,7 +141,7 @@ public class SaveTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testSaveFallback() {
+	void testSaveFallback() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(NOPK_NMB, NOPK_TXT).set(NOPK_NMB, 77).set(NOPK_TXT, "t77").build();
@@ -159,14 +157,16 @@ public class SaveTest extends AbstractJdbcDatastoreSuiteTest {
 		});
 	}
 
-	@Test(expected = DataAccessException.class)
-	public void testSaveFailure() {
-		inTransaction(() -> {
+	@Test
+	void testSaveFailure() {
+		assertThrows(DataAccessException.class, () -> {
+			inTransaction(() -> {
 
-			PropertyBox value = PropertyBox.builder(NOPK_NMB, NOPK_TXT).set(NOPK_NMB, 77).set(NOPK_TXT, "t77").build();
+				PropertyBox value = PropertyBox.builder(NOPK_NMB, NOPK_TXT).set(NOPK_NMB, 77).set(NOPK_TXT, "t77").build();
 
-			getDatastore().save(NOPK_TARGET, value, DefaultWriteOption.SAVE_DISABLE_INSERT_FALLBACK);
+				getDatastore().save(NOPK_TARGET, value, DefaultWriteOption.SAVE_DISABLE_INSERT_FALLBACK);
 
+			});
 		});
 	}
 

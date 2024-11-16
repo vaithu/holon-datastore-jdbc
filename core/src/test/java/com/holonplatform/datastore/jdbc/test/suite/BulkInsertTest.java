@@ -22,24 +22,21 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NBOOL;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NST_STR;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.core.property.PropertySet;
 
-public class BulkInsertTest extends AbstractJdbcDatastoreSuiteTest {
+class BulkInsertTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testBulkInsert() {
+	void testBulkInsert() {
 		inTransaction(() -> {
 
 			OperationResult result = getDatastore().bulkInsert(NAMED_TARGET, PropertySet.of(KEY, STR, NBOOL))
@@ -65,7 +62,7 @@ public class BulkInsertTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkInsertDefaults() {
+	void testBulkInsertDefaults() {
 		inTransaction(() -> {
 
 			OperationResult result = getDatastore().bulkInsert(NAMED_TARGET, PropertySet.of(KEY, STR, NBOOL))
@@ -87,7 +84,7 @@ public class BulkInsertTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkInsertPropertySet() {
+	void testBulkInsertPropertySet() {
 		inTransaction(() -> {
 
 			OperationResult result = getDatastore().bulkInsert(NAMED_TARGET, PropertySet.of(PROPERTIES))
@@ -105,7 +102,7 @@ public class BulkInsertTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkInsertPropertySets() {
+	void testBulkInsertPropertySets() {
 		inTransaction(() -> {
 
 			OperationResult result = getDatastore().bulkInsert(NAMED_TARGET, PropertySet.of(PROPERTIES))

@@ -18,20 +18,20 @@ package com.holonplatform.datastore.jdbc.test.suite;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.KEY;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.query.QuerySort;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.query.QuerySort.SortDirection;
 import com.holonplatform.datastore.jdbc.composer.OrderBySort;
 
-public class QuerySortTest extends AbstractJdbcDatastoreSuiteTest {
+class QuerySortTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testSorts() {
+	void testSorts() {
 		List<Long> res = getDatastore().query().target(NAMED_TARGET).sort(STR.desc()).sort(KEY.desc()).list(KEY);
 		assertEquals(2, res.size());
 		assertEquals(Long.valueOf(2), res.get(0));
@@ -62,7 +62,7 @@ public class QuerySortTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testOrderBySort() {
+	void testOrderBySort() {
 
 		List<Long> res = getDatastore().query().target(NAMED_TARGET).sort(OrderBySort.create(KEY.getName() + " asc"))
 				.list(KEY);

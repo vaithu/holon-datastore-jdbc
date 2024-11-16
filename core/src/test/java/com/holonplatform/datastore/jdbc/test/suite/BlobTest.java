@@ -22,9 +22,7 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TAR
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NBOOL;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -33,22 +31,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import org.junit.Test;
-
 import com.holonplatform.core.exceptions.DataAccessException;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.internal.utils.ConversionUtils;
 import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.core.property.PropertySet;
 import com.holonplatform.core.streams.LimitedInputStream;
 import com.holonplatform.datastore.jdbc.test.data.TestDataModel;
 
-public class BlobTest extends AbstractJdbcDatastoreSuiteTest {
+class BlobTest extends AbstractJdbcDatastoreSuiteTest {
 
 	private static final PropertySet<?> BLOB_SET_BYT = PropertySet.of(PROPERTIES, BLOB_BYS);
 	private static final PropertySet<?> BLOB_SET_IST = PropertySet.of(PROPERTIES, BLOB_IST);
 
 	@Test
-	public void testBlobBytes() {
+	void testBlobBytes() {
 		inTransaction(() -> {
 
 			// query
@@ -88,7 +86,7 @@ public class BlobTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@SuppressWarnings("resource")
 	@Test
-	public void testBlobStream() {
+	void testBlobStream() {
 		inTransaction(() -> {
 
 			try {
@@ -142,7 +140,7 @@ public class BlobTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBlobFile() {
+	void testBlobFile() {
 		inTransaction(() -> {
 
 			final File file = new File(getClass().getClassLoader().getResource("testfile.txt").getFile());

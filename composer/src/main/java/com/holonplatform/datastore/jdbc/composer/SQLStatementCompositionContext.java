@@ -81,7 +81,7 @@ public interface SQLStatementCompositionContext extends SQLCompositionContext {
 	 */
 	default Optional<String> getAliasOrRoot(Path<?> path) {
 		Optional<String> alias = getAlias(path, true);
-		if (!alias.isPresent()) {
+		if (alias.isEmpty()) {
 			return getRootAlias();
 		}
 		return alias;

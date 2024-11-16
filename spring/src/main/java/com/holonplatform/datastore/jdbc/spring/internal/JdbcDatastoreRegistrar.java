@@ -229,7 +229,7 @@ public class JdbcDatastoreRegistrar extends AbstractConfigPropertyRegistrar impl
 			String dialectClassName = datastoreConfig.getDialect();
 			if (dialectClassName != null) {
 				try {
-					SQLDialect dialect = (SQLDialect) Class.forName(dialectClassName).newInstance();
+					SQLDialect dialect = (SQLDialect) Class.forName(dialectClassName).getDeclaredConstructor().newInstance();
 					if (dialect != null) {
 						pvs.add("dialect", dialect);
 					}

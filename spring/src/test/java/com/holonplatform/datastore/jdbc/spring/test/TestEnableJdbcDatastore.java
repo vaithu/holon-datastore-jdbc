@@ -22,13 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,9 +43,8 @@ import com.holonplatform.jdbc.DatabasePlatform;
 import com.holonplatform.jdbc.spring.EnableDataSource;
 
 @Transactional
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestEnableJdbcDatastore.Config.class)
-public class TestEnableJdbcDatastore {
+@SpringJUnitConfig(classes = TestEnableJdbcDatastore.Config.class)
+class TestEnableJdbcDatastore {
 
 	@Configuration
 	@ComponentScan(basePackageClasses = TestCommodityFactory.class)
@@ -68,7 +65,7 @@ public class TestEnableJdbcDatastore {
 	private JdbcDatastore datastore;
 
 	@Test
-	public void testCommodity() {
+	void testCommodity() {
 		TestCommodity tc = datastore.create(TestCommodity.class);
 		assertNotNull(tc);
 
@@ -77,7 +74,7 @@ public class TestEnableJdbcDatastore {
 
 	@Transactional
 	@Test
-	public void testDatastore() {
+	void testDatastore() {
 
 		assertNotNull(datastore);
 

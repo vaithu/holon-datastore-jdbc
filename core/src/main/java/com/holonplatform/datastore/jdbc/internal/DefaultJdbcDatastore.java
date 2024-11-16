@@ -253,7 +253,7 @@ public class DefaultJdbcDatastore extends AbstractInitializableDatastore<JdbcDat
 	public void setConfiguration(DataSourceConfigProperties configuration, boolean buildDataSource) {
 		ObjectUtils.argumentNotNull(configuration, "DataSource configuration must be not null");
 		this.configuration = configuration;
-		if (!getDatabase().isPresent()) {
+		if (getDatabase().isEmpty()) {
 			setDatabase(configuration.getDatabasePlatform());
 		}
 		if (buildDataSource) {
@@ -885,7 +885,7 @@ public class DefaultJdbcDatastore extends AbstractInitializableDatastore<JdbcDat
 		public JdbcDatastore.Builder<D> dialect(String dialectClassName) {
 			ObjectUtils.argumentNotNull(dialectClassName, "Dialect class name must be not null");
 			try {
-				datastore.setDialect((SQLDialect) Class.forName(dialectClassName).newInstance());
+				datastore.setDialect((SQLDialect) Class.forName(dialectClassName).getDeclaredConstructor().newInstance());
 			} catch (Exception e) {
 				throw new IllegalArgumentException("Failed to istantiate dialect class [" + dialectClassName + "]", e);
 			}

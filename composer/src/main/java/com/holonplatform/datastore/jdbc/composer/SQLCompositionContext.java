@@ -134,7 +134,7 @@ public interface SQLCompositionContext extends SQLContext, ResolutionContext, Ex
 	 */
 	default Optional<SQLStatementCompositionContext> isStatementCompositionContext() {
 		return Optional.ofNullable(
-				(this instanceof SQLStatementCompositionContext) ? (SQLStatementCompositionContext) this : null);
+				(this instanceof SQLStatementCompositionContext sqlscc) ? sqlscc : null);
 	}
 
 	/**
@@ -153,8 +153,8 @@ public interface SQLCompositionContext extends SQLContext, ResolutionContext, Ex
 	 *         type. Otherwise, an empty Optional is returned.
 	 */
 	static Optional<SQLCompositionContext> isSQLCompositionContext(ResolutionContext context) {
-		if (context instanceof SQLCompositionContext) {
-			return Optional.of((SQLCompositionContext) context);
+		if (context instanceof SQLCompositionContext compositionContext) {
+			return Optional.of(compositionContext);
 		}
 		return Optional.empty();
 	}

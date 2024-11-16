@@ -26,22 +26,22 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_COD
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_CODE_P;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_TEXT;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_TEXT_P;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.datastore.relational.RelationalTarget;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.core.query.QueryFilter;
 
-public class QueryJoinsTest extends AbstractJdbcDatastoreSuiteTest {
+class QueryJoinsTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testJoins() {
+	void testJoins() {
 
 		long key = getDatastore().query().target(TEST3).filter(TEST3_CODE.eq(2L)).findOne(TEST3_CODE).orElse(null);
 		assertEquals(2, key);
@@ -77,7 +77,7 @@ public class QueryJoinsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testRightJoins() {
+	void testRightJoins() {
 
 		if (AbstractJdbcDatastoreTestSuite.rightJoinTest) {
 
@@ -100,7 +100,7 @@ public class QueryJoinsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testRecur() {
+	void testRecur() {
 
 		List<String> parents = new ArrayList<>();
 		findParents(parents, "test3");

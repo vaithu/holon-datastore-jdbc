@@ -25,8 +25,8 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NST_DEC;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TIME;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TMS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -37,15 +37,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.internal.query.filter.NotFilter;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.datastore.jdbc.composer.WhereFilter;
 
-public class QueryFilterTest extends AbstractJdbcDatastoreSuiteTest {
+class QueryFilterTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testFilters() {
+	void testFilters() {
 
 		long count = getDatastore().query().target(NAMED_TARGET).filter(STR.eq("One")).count();
 		assertEquals(1, count);
@@ -110,7 +110,7 @@ public class QueryFilterTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testDateAndTimes() {
+	void testDateAndTimes() {
 
 		List<Date> values = getDatastore().query().target(NAMED_TARGET).list(DAT);
 		assertNotNull(values);
@@ -170,7 +170,7 @@ public class QueryFilterTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testTimeFilter() {
+	void testTimeFilter() {
 
 		LocalTime time = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(TIME).orElse(null);
 		assertNotNull(time);
@@ -184,7 +184,7 @@ public class QueryFilterTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testLocalDateTimeWithTimestampFilter() {
+	void testLocalDateTimeWithTimestampFilter() {
 
 		List<LocalDateTime> ltvalues = getDatastore().query().target(NAMED_TARGET)
 				.filter(LTMS.eq(LocalDateTime.of(2017, Month.MARCH, 23, 15, 30, 25))).list(LTMS);
@@ -194,7 +194,7 @@ public class QueryFilterTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testWhereFilter() {
+	void testWhereFilter() {
 
 		long count = getDatastore().query().target(NAMED_TARGET)
 				.filter(WhereFilter.create("keycode = ?", Long.valueOf(1))).count();

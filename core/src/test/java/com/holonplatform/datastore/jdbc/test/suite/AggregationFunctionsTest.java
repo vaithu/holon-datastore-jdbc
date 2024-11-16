@@ -18,20 +18,20 @@ package com.holonplatform.datastore.jdbc.test.suite;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.KEY;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
-import org.junit.Test;
-
 import com.holonplatform.core.query.QueryFunction;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.query.QueryFunction.Count;
 
-public class AggregationFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
+class AggregationFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testCount() {
+	void testCount() {
 
 		long result = getDatastore().query().target(NAMED_TARGET).findOne(Count.create(STR)).orElse(-1L);
 		assertEquals(2, result);
@@ -42,28 +42,28 @@ public class AggregationFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testMinMax() {
+	void testMinMax() {
 		Optional<Long> key = getDatastore().query().target(NAMED_TARGET).findOne(KEY.max());
 		assertTrue(key.isPresent());
-		assertEquals(new Long(2), key.get());
+		assertEquals(Long.valueOf(2), key.get());
 
 		key = getDatastore().query().target(NAMED_TARGET).findOne(KEY.min());
 		assertTrue(key.isPresent());
-		assertEquals(new Long(1), key.get());
+		assertEquals(Long.valueOf(1), key.get());
 	}
 
 	@Test
-	public void testSum() {
+	void testSum() {
 		Optional<Long> sum = getDatastore().query().target(NAMED_TARGET).findOne(QueryFunction.sum(KEY));
 		assertTrue(sum.isPresent());
-		assertEquals(new Long(3), sum.get());
+		assertEquals(Long.valueOf(3), sum.get());
 	}
 
 	@Test
-	public void testAvg() {
+	void testAvg() {
 		Optional<Double> avg = getDatastore().query().target(NAMED_TARGET).findOne(KEY.avg());
 		assertTrue(avg.isPresent());
-		assertEquals(new Double(1.5), avg.get());
+		assertEquals(Double.valueOf(1.5), avg.get());
 	}
 
 }

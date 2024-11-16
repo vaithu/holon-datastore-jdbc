@@ -17,20 +17,20 @@ package com.holonplatform.datastore.jdbc.test.suite;
 
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.KEY;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.beans.BeanPropertySet;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.query.BeanProjection;
 import com.holonplatform.datastore.jdbc.test.data.TestProjectionBean;
 
-public class DataMappingTest extends AbstractJdbcDatastoreSuiteTest {
+class DataMappingTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testBeanQuery() {
+	void testBeanQuery() {
 
 		final BeanPropertySet<TestProjectionBean> BPS = BeanPropertySet.create(TestProjectionBean.class);
 

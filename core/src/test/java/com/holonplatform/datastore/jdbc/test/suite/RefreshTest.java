@@ -16,6 +16,7 @@
 package com.holonplatform.datastore.jdbc.test.suite;
 
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NOPK_NMB;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NOPK_TARGET;
@@ -23,19 +24,19 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NOPK_TXT;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES_NOID;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.exceptions.DataAccessException;
 import com.holonplatform.core.property.PropertyBox;
 
-public class RefreshTest extends AbstractJdbcDatastoreSuiteTest {
+class RefreshTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testRefresh() {
+	void testRefresh() {
 		PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES)
 				.orElse(null);
 		assertNotNull(value);
@@ -46,7 +47,7 @@ public class RefreshTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testRefreshVirtual() {
+	void testRefreshVirtual() {
 		PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES_V)
 				.orElse(null);
 		assertNotNull(value);
@@ -59,7 +60,7 @@ public class RefreshTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testUpdateRefresh() {
+	void testUpdateRefresh() {
 
 		inTransaction(() -> {
 			PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES)
@@ -82,7 +83,7 @@ public class RefreshTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testRefreshNoId() {
+	void testRefreshNoId() {
 		PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES_NOID)
 				.orElse(null);
 		assertNotNull(value);
@@ -92,20 +93,24 @@ public class RefreshTest extends AbstractJdbcDatastoreSuiteTest {
 		assertEquals(Long.valueOf(1), refreshed.getValue(KEY));
 	}
 
-	@Test(expected = DataAccessException.class)
-	public void testRefreshMissingKey() {
-		PropertyBox value = PropertyBox.builder(PROPERTIES).set(STR, "test").build();
+	@Test
+	void testRefreshMissingKey() {
+		assertThrows(DataAccessException.class, () -> {
+			PropertyBox value = PropertyBox.builder(PROPERTIES).set(STR, "test").build();
 
-		getDatastore().refresh(NAMED_TARGET, value);
+			getDatastore().refresh(NAMED_TARGET, value);
+		});
 	}
 
-	@Test(expected = DataAccessException.class)
-	public void testRefreshMissingPk() {
-		PropertyBox value = getDatastore().query().target(NOPK_TARGET).filter(NOPK_NMB.eq(1))
-				.findOne(NOPK_NMB, NOPK_TXT).orElse(null);
-		assertNotNull(value);
+	@Test
+	void testRefreshMissingPk() {
+		assertThrows(DataAccessException.class, () -> {
+			PropertyBox value = getDatastore().query().target(NOPK_TARGET).filter(NOPK_NMB.eq(1))
+					.findOne(NOPK_NMB, NOPK_TXT).orElse(null);
+			assertNotNull(value);
 
-		getDatastore().refresh(NOPK_TARGET, value);
+			getDatastore().refresh(NOPK_TARGET, value);
+		});
 	}
 
 }

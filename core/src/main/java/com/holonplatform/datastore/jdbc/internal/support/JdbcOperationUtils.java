@@ -73,7 +73,7 @@ public final class JdbcOperationUtils implements Serializable {
 		List<QueryFilter> filters = new LinkedList<>();
 		for (Path path : primaryKey.getPaths()) {
 			Optional<Object> value = adapter.getValue(path);
-			if (!value.isPresent()) {
+			if (value.isEmpty()) {
 				throw new DataAccessException("Primary key path [" + path + "] value not available in PropertyBox");
 			}
 			filters.add(QueryFilter.eq(path, value.get()));

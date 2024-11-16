@@ -19,21 +19,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.holonplatform.core.datastore.Datastore;
 import com.holonplatform.datastore.jdbc.spring.EnableJdbcDatastore;
 import com.holonplatform.jdbc.spring.EnableDataSource;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestPrimaryMode.Config.class)
-public class TestPrimaryMode {
+@SpringJUnitConfig(classes = TestPrimaryMode.Config.class)
+class TestPrimaryMode {
 
 	@Configuration
 	@PropertySource("test4.properties")
@@ -58,7 +55,7 @@ public class TestPrimaryMode {
 	private Datastore datastore;
 
 	@Test
-	public void testPrimary() {
+	void testPrimary() {
 		assertTrue(datastore.getDataContextId().isPresent());
 		assertEquals("two", datastore.getDataContextId().get());
 	}

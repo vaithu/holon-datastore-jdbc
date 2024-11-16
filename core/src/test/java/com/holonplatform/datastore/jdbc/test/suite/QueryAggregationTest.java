@@ -22,24 +22,24 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TAR
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NBOOL;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.property.Property;
 import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.core.query.QueryAggregation;
 import com.holonplatform.core.query.QueryFilter;
 import com.holonplatform.datastore.jdbc.test.data.TestEnum;
 
-public class QueryAggregationTest extends AbstractJdbcDatastoreSuiteTest {
+class QueryAggregationTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testAggregation() {
+	void testAggregation() {
 		List<Long> keys = getDatastore().query().target(NAMED_TARGET).aggregate(KEY).list(KEY);
 		assertEquals(2, keys.size());
 
@@ -68,7 +68,7 @@ public class QueryAggregationTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testAggregationMulti() {
+	void testAggregationMulti() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES).set(KEY, 701L).set(STR, "One").set(DBL, 1.2)
@@ -93,7 +93,7 @@ public class QueryAggregationTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testAggregationProjection() {
+	void testAggregationProjection() {
 
 		Property<Long> MAX_KEY = KEY.max();
 

@@ -24,20 +24,20 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_CODE;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_SET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_TEXT;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.datastore.relational.SubQuery;
 import com.holonplatform.core.property.PropertyBox;
 
-public class BulkUpdateAliasTest extends AbstractJdbcDatastoreSuiteTest {
+class BulkUpdateAliasTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testBulkUpdateSubquery() {
+	void testBulkUpdateSubquery() {
 		if (AbstractJdbcDatastoreTestSuite.updateAliasTest) {
 
 			inTransaction(() -> {

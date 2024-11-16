@@ -40,7 +40,7 @@ import com.holonplatform.datastore.jdbc.spring.boot.test.config.TestCommodity;
 
 @SpringBootTest
 @ActiveProfiles("p5")
-public class TestJdbcDatastoreAutoConfigIdentifier {
+class TestJdbcDatastoreAutoConfigIdentifier {
 
 	@Configuration
 	@ComponentScan(basePackageClasses = TestCommodity.class)
@@ -61,7 +61,7 @@ public class TestJdbcDatastoreAutoConfigIdentifier {
 
 	@Transactional
 	@Test
-	public void testIdentifierResolutionStrategy() {
+	void testIdentifierResolutionStrategy() {
 
 		assertEquals(IdentifierResolutionStrategy.IDENTIFIER_PROPERTIES,
 				datastore.create(TestCommodity.class).getIdentifierResolutionStrategy());
@@ -85,7 +85,7 @@ public class TestJdbcDatastoreAutoConfigIdentifier {
 
 	@Transactional
 	@Test
-	public void testIdentifierResolutionStrategyError() {
+	void testIdentifierResolutionStrategyError() {
 		final PropertySet<?> PROPS_NOID = PropertySet.of(KEY, STR);
 
 		assertThrows(DataAccessException.class, () -> {

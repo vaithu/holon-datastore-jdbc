@@ -66,7 +66,7 @@ public class TestJdbcDatastoreTransactional {
 	private Datastore datastore;
 
 	@Test
-	public void testTransactional() {
+	void testTransactional() {
 
 		assertThrows(DataAccessException.class, () -> service.testSave(1L));
 

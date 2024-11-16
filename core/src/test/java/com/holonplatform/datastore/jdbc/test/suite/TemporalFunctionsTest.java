@@ -21,9 +21,7 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.LDAT;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.LTMS;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TMS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,15 +29,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.query.QueryFunction;
 
-public class TemporalFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
+class TemporalFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testCurrentDate() {
+	void testCurrentDate() {
 
 		final Calendar now = Calendar.getInstance();
 
@@ -74,7 +72,7 @@ public class TemporalFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testCurrentDateAsLocalDate() {
+	void testCurrentDateAsLocalDate() {
 
 		final LocalDate lnow = LocalDate.now();
 
@@ -102,7 +100,7 @@ public class TemporalFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testCurrentTimestamp() {
+	void testCurrentTimestamp() {
 
 		final Calendar now = Calendar.getInstance();
 
@@ -139,7 +137,7 @@ public class TemporalFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testCurrentTimestampAsLocalDateTime() {
+	void testCurrentTimestampAsLocalDateTime() {
 
 		final LocalDateTime lnow = LocalDateTime.now().withSecond(0).withNano(0);
 
@@ -168,7 +166,7 @@ public class TemporalFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testTemporalFunctionProjection() {
+	void testTemporalFunctionProjection() {
 		Integer value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(DAT.year()).orElse(null);
 		assertNotNull(value);
 		assertEquals(Integer.valueOf(2016), value);
@@ -203,7 +201,7 @@ public class TemporalFunctionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testTemporalFunctionFilter() {
+	void testTemporalFunctionFilter() {
 
 		// year
 

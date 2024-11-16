@@ -167,24 +167,24 @@ public enum DefaultSQLValueSerializer implements SQLValueSerializer {
 				LocalTime timePart = null;
 				ZoneOffset offset = null;
 
-				if (value instanceof LocalDate) {
-					datePart = (LocalDate) value;
-				} else if (value instanceof LocalTime) {
-					timePart = (LocalTime) value;
-				} else if (value instanceof LocalDateTime) {
-					datePart = ((LocalDateTime) value).toLocalDate();
-					timePart = ((LocalDateTime) value).toLocalTime();
-				} else if (value instanceof OffsetTime) {
-					timePart = ((OffsetTime) value).toLocalTime();
-					offset = ((OffsetTime) value).getOffset();
-				} else if (value instanceof OffsetDateTime) {
-					datePart = ((OffsetDateTime) value).toLocalDate();
-					timePart = ((OffsetDateTime) value).toLocalTime();
-					offset = ((OffsetDateTime) value).getOffset();
-				} else if (value instanceof ZonedDateTime) {
-					datePart = ((ZonedDateTime) value).toLocalDate();
-					timePart = ((ZonedDateTime) value).toLocalTime();
-					offset = ((ZonedDateTime) value).getOffset();
+				if (value instanceof LocalDate date) {
+					datePart = date;
+				} else if (value instanceof LocalTime time) {
+					timePart = time;
+				} else if (value instanceof LocalDateTime time) {
+					datePart = time.toLocalDate();
+					timePart = time.toLocalTime();
+				} else if (value instanceof OffsetTime time) {
+					timePart = time.toLocalTime();
+					offset = time.getOffset();
+				} else if (value instanceof OffsetDateTime time) {
+					datePart = time.toLocalDate();
+					timePart = time.toLocalTime();
+					offset = time.getOffset();
+				} else if (value instanceof ZonedDateTime time) {
+					datePart = time.toLocalDate();
+					timePart = time.toLocalTime();
+					offset = time.getOffset();
 				}
 
 				if (datePart != null || timePart != null) {

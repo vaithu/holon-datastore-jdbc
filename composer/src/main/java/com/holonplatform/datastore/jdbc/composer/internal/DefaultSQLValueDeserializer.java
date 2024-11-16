@@ -242,8 +242,8 @@ public enum DefaultSQLValueDeserializer implements SQLValueDeserializer {
 		}
 
 		// Byte[] to InputStream
-		if (value instanceof byte[] && InputStream.class.isAssignableFrom(targetType)) {
-			return new ByteArrayInputStream((byte[]) value);
+		if (value instanceof byte[] bytes && InputStream.class.isAssignableFrom(targetType)) {
+			return new ByteArrayInputStream(bytes);
 		}
 
 		// clob

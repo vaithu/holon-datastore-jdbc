@@ -19,13 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.holonplatform.core.datastore.DataTarget;
@@ -33,9 +31,8 @@ import com.holonplatform.datastore.jdbc.JdbcDatastore;
 import com.holonplatform.datastore.jdbc.spring.EnableJdbcDatastore;
 import com.holonplatform.jdbc.spring.EnableDataSource;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestMultiDataContext.Config.class)
-public class TestMultiDataContext {
+@SpringJUnitConfig(classes = TestMultiDataContext.Config.class)
+class TestMultiDataContext {
 
 	@Configuration
 	@PropertySource("test_multi.properties")
@@ -57,15 +54,15 @@ public class TestMultiDataContext {
 	}
 
 	@Autowired
-	@Qualifier("one")
+			@Qualifier("one")
 	private JdbcDatastore datastore1;
 
 	@Autowired
-	@Qualifier("two")
+			@Qualifier("two")
 	private JdbcDatastore datastore2;
 
 	@Test
-	public void testDataContext1() {
+	void testDataContext1() {
 		assertNotNull(datastore1);
 
 		long count = datastore1.query().target(DataTarget.named("testm1")).count();
@@ -73,7 +70,7 @@ public class TestMultiDataContext {
 	}
 
 	@Test
-	public void testDataContext2() {
+	void testDataContext2() {
 		assertNotNull(datastore2);
 
 		long count = datastore2.query().target(DataTarget.named("testm2")).count();

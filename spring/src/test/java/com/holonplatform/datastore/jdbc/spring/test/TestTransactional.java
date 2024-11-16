@@ -22,13 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.sql.ResultSet;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import com.holonplatform.core.datastore.DataTarget;
 import com.holonplatform.core.datastore.Datastore.OperationResult;
@@ -40,10 +38,9 @@ import com.holonplatform.datastore.jdbc.JdbcDatastore;
 import com.holonplatform.datastore.jdbc.spring.EnableJdbcDatastore;
 import com.holonplatform.jdbc.spring.EnableDataSource;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestTransactional.Config.class)
+@SpringJUnitConfig(classes = TestTransactional.Config.class)
 @DirtiesContext
-public class TestTransactional {
+class TestTransactional {
 
 	private final static PathProperty<Long> CODE = PathProperty.create("code", long.class);
 	private final static PathProperty<String> TEXT = PathProperty.create("text", String.class);
@@ -62,7 +59,7 @@ public class TestTransactional {
 	private JdbcDatastore datastore;
 
 	@Test
-	public void testTransactional() {
+	void testTransactional() {
 
 		long count = datastore.query().target(TARGET).count();
 		assertEquals(1L, count);

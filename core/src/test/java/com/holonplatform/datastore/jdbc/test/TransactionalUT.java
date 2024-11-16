@@ -15,15 +15,12 @@
  */
 package com.holonplatform.datastore.jdbc.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.ResultSet;
 
 import javax.sql.DataSource;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +34,7 @@ import com.holonplatform.datastore.jdbc.JdbcDatastore;
 import com.holonplatform.jdbc.DataSourceBuilder;
 import com.holonplatform.jdbc.DatabasePlatform;
 
-public class TransactionalUT {
+class TransactionalUT {
 
 	private final static String INIT_SQL = "create table testtx (code bigint primary key, text varchar(100) not null); INSERT INTO testtx VALUES (1, 'TheOne');";
 
@@ -49,7 +46,7 @@ public class TransactionalUT {
 	private static JdbcDatastore datastore;
 
 	@BeforeAll
-	public static void initDatastore() {
+	static void initDatastore() {
 
 		DataSource dataSource = DataSourceBuilder.builder().url("jdbc:h2:mem:txdb").username("sa")
 				.withInitScript(INIT_SQL).build();
@@ -59,7 +56,7 @@ public class TransactionalUT {
 	}
 
 	@Test
-	public void testTransactional() {
+	void testTransactional() {
 
 		long count = datastore.query().target(TARGET).count();
 		assertEquals(1L, count);
@@ -114,7 +111,7 @@ public class TransactionalUT {
 
 		// rollback on error
 
-		Assertions.assertThrows(DataAccessException.class, () -> datastore.withTransaction(tx -> {
+		assertThrows(DataAccessException.class, () -> datastore.withTransaction(tx -> {
 			PropertyBox box = PropertyBox.builder(CODE, TEXT).set(TEXT, "ToRollback").build();
 			datastore.insert(TARGET, box);
 
@@ -124,7 +121,7 @@ public class TransactionalUT {
 		count = datastore.query().target(TARGET).count();
 		assertEquals(3L, count);
 
-		Assertions.assertThrows(RuntimeException.class, () -> datastore.withTransaction(tx -> {
+		assertThrows(RuntimeException.class, () -> datastore.withTransaction(tx -> {
 			PropertyBox box = PropertyBox.builder(CODE, TEXT).set(CODE, 4L).set(TEXT, "ToRollback").build();
 			datastore.insert(TARGET, box);
 

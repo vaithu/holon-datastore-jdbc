@@ -18,9 +18,7 @@ package com.holonplatform.datastore.jdbc.test.suite;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.KEY;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -28,13 +26,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
-
 import com.holonplatform.core.property.PropertyBox;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.query.lock.LockQuery;
 import com.holonplatform.jdbc.DatabasePlatform;
 
-public class LockTest extends AbstractJdbcDatastoreSuiteTest {
+class LockTest extends AbstractJdbcDatastoreSuiteTest {
 
 	private static boolean executeLockTest(DatabasePlatform platform) {
 		return platform != DatabasePlatform.DERBY && platform != DatabasePlatform.HSQL
@@ -42,7 +40,7 @@ public class LockTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testLockMode() {
+	void testLockMode() {
 
 		assertTrue(getDatastore().hasCommodity(LockQuery.class));
 
@@ -63,7 +61,7 @@ public class LockTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testLockFail() {
+	void testLockFail() {
 
 		if (executeLockTest(getDatabasePlatform())) {
 

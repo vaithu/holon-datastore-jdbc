@@ -93,9 +93,9 @@ public class JdbcDatastoreAutoConfigurationRegistrar
 	 */
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry) {
-		if (beanFactory instanceof ListableBeanFactory) {
+		if (beanFactory instanceof ListableBeanFactory factory) {
 			for (String[] dataSourceDefinition : BeanRegistryUtils.getBeanNamesWithDataContextId(registry,
-					(ListableBeanFactory) beanFactory, DataSource.class, DataSourceFactoryBean.class)) {
+					factory, DataSource.class, DataSourceFactoryBean.class)) {
 				// register JDBC datastore
 				final String dataContextId = dataSourceDefinition[1];
 				JdbcDatastoreRegistrar.registerDatastore(registry, environment, dataContextId, dataSourceDefinition[0],

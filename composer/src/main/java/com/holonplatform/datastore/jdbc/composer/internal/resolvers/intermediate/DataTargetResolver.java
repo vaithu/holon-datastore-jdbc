@@ -70,8 +70,8 @@ public enum DataTargetResolver implements SQLContextExpressionResolver<DataTarge
 		expression.validate();
 
 		// check if it is a RelationalTarget already
-		if (expression instanceof RelationalTarget) {
-			return Optional.of((RelationalTarget) expression);
+		if (expression instanceof RelationalTarget target) {
+			return Optional.of(target);
 		}
 
 		// intermediate resolution

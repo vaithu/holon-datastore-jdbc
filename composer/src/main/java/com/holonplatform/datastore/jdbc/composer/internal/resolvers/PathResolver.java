@@ -70,7 +70,7 @@ public enum PathResolver implements SQLExpressionResolver<Path> {
 		// check parent alias
 		Optional<String> alias = path.getParent()
 				.flatMap(parent -> context.isStatementCompositionContext().flatMap(ctx -> ctx.getAliasOrRoot(parent)));
-		if (!alias.isPresent()) {
+		if (alias.isEmpty()) {
 			alias = context.isStatementCompositionContext().flatMap(ctx -> ctx.getAliasOrRoot(path));
 		}
 

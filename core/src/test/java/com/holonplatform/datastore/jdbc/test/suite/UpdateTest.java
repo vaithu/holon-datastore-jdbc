@@ -35,23 +35,20 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TIME;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TMS;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.VIRTUAL_STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.exceptions.DataAccessException;
 import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.datastore.jdbc.test.data.TestEnum;
 import com.holonplatform.datastore.jdbc.test.data.TestSampleData;
 
-public class UpdateTest extends AbstractJdbcDatastoreSuiteTest {
+class UpdateTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testUpdate() {
+	void testUpdate() {
 		inTransaction(() -> {
 
 			PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES)
@@ -92,7 +89,7 @@ public class UpdateTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testUpdateVirtual() {
+	void testUpdateVirtual() {
 		inTransaction(() -> {
 
 			PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES_V)
@@ -112,7 +109,7 @@ public class UpdateTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testUpdateNulls() {
+	void testUpdateNulls() {
 		inTransaction(() -> {
 
 			PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES)
@@ -132,7 +129,7 @@ public class UpdateTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testUpdateNoId() {
+	void testUpdateNoId() {
 		inTransaction(() -> {
 
 			PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES_NOID)
@@ -151,27 +148,31 @@ public class UpdateTest extends AbstractJdbcDatastoreSuiteTest {
 		});
 	}
 
-	@Test(expected = DataAccessException.class)
-	public void testUpdateMissingKey() {
-		inTransaction(() -> {
+	@Test
+	void testUpdateMissingKey() {
+		assertThrows(DataAccessException.class, () -> {
+			inTransaction(() -> {
 
-			PropertyBox value = PropertyBox.builder(PROPERTIES).set(STR, "test").build();
-			getDatastore().update(NAMED_TARGET, value);
+				PropertyBox value = PropertyBox.builder(PROPERTIES).set(STR, "test").build();
+				getDatastore().update(NAMED_TARGET, value);
 
+			});
 		});
 	}
 
-	@Test(expected = DataAccessException.class)
-	public void testUpdateMissingPk() {
-		inTransaction(() -> {
+	@Test
+	void testUpdateMissingPk() {
+		assertThrows(DataAccessException.class, () -> {
+			inTransaction(() -> {
 
-			PropertyBox value = getDatastore().query().target(NOPK_TARGET).filter(NOPK_NMB.eq(1))
-					.findOne(NOPK_NMB, NOPK_TXT).orElse(null);
-			assertNotNull(value);
+				PropertyBox value = getDatastore().query().target(NOPK_TARGET).filter(NOPK_NMB.eq(1))
+						.findOne(NOPK_NMB, NOPK_TXT).orElse(null);
+				assertNotNull(value);
 
-			value.setValue(NOPK_TXT, "uxs");
-			getDatastore().update(NAMED_TARGET, value);
+				value.setValue(NOPK_TXT, "uxs");
+				getDatastore().update(NAMED_TARGET, value);
 
+			});
 		});
 	}
 

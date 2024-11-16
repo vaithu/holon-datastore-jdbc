@@ -701,11 +701,6 @@
 		</dependency>
 
 		<!-- Test -->
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -751,6 +746,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.verion}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
 			<version>${derby.version}</version>
@@ -778,12 +779,22 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>com.sap.hana</groupId>
-			<artifactId>jdbc</artifactId>
-			<version>${hana-driver.version}</version>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
 			<scope>test</scope>
-		</dependency>-->
+		</dependency>
+
+
+		<!--<dependency>
+            <groupId>com.sap.hana</groupId>
+            <artifactId>jdbc</artifactId>
+            <version>${hana-driver.version}</version>
+            <scope>test</scope>
+        </dependency>-->
 
 	</dependencies>
 

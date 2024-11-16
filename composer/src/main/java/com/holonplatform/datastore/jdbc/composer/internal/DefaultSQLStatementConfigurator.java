@@ -109,7 +109,7 @@ public enum DefaultSQLStatementConfigurator implements SQLStatementConfigurator 
 				+ "]");
 
 		Optional<SQLType> sqlType = context.getTypeConverter().getSqlType(context, type);
-		if (!sqlType.isPresent()) {
+		if (sqlType.isEmpty()) {
 			// try to use NULL type
 			if (context.getDialect().supportsSqlType(Types.NULL)) {
 				sqlType = Optional.of(SQLType.create(Types.NULL));
@@ -326,8 +326,7 @@ public enum DefaultSQLStatementConfigurator implements SQLStatementConfigurator 
 
 		// streams
 		if (InputStream.class.isAssignableFrom(type)) {
-			if (value instanceof LimitedInputStream) {
-				final LimitedInputStream lis = (LimitedInputStream) value;
+			if (value instanceof LimitedInputStream lis) {
 
 				if (context.getDialect().supportsBinaryStreamParameter()) {
 					jdbcStatement.setBinaryStream(parameterIndex, lis.getActualStream(), lis.getLength());
@@ -337,7 +336,7 @@ public enum DefaultSQLStatementConfigurator implements SQLStatementConfigurator 
 				} else {
 					try {
 						jdbcStatement.setBytes(parameterIndex, ConversionUtils
-								.convertInputStreamToBytes(((LimitedInputStream) value).getActualStream()));
+								.convertInputStreamToBytes(lis.getActualStream()));
 						LOGGER.debug(() -> "Statement parameter value at index [" + parameterIndex
 								+ "] setted as Byte array");
 					} catch (IOException e) {
@@ -346,10 +345,10 @@ public enum DefaultSQLStatementConfigurator implements SQLStatementConfigurator 
 					return value;
 				}
 			}
-			if (value instanceof ByteArrayInputStream) {
+			if (value instanceof ByteArrayInputStream stream) {
 				try {
 					jdbcStatement.setBytes(parameterIndex,
-							ConversionUtils.convertInputStreamToBytes((ByteArrayInputStream) value));
+							ConversionUtils.convertInputStreamToBytes(stream));
 					LOGGER.debug(
 							() -> "Statement parameter value at index [" + parameterIndex + "] setted as Byte array");
 				} catch (IOException e) {

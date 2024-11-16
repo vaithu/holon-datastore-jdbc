@@ -21,14 +21,14 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.KEY;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Test;
-
 import com.holonplatform.core.Expression.InvalidExpressionException;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.ExpressionResolver;
 import com.holonplatform.core.datastore.Datastore.OperationResult;
 import com.holonplatform.core.property.PropertyBox;
@@ -39,10 +39,10 @@ import com.holonplatform.datastore.jdbc.test.data.TestEnum;
 import com.holonplatform.datastore.jdbc.test.expression.KeyIsFilter;
 import com.holonplatform.datastore.jdbc.test.expression.StrKeySort;
 
-public class CustomExpressionsTest extends AbstractJdbcDatastoreSuiteTest {
+class CustomExpressionsTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testQueryFilter() {
+	void testQueryFilter() {
 		inTransaction(() -> {
 
 			long count = getDatastore().query().target(NAMED_TARGET).filter(new KeyIsFilter(1)).count();
@@ -74,7 +74,7 @@ public class CustomExpressionsTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@SuppressWarnings("serial")
 	@Test
-	public void testQueryFilterExpression() {
+	void testQueryFilterExpression() {
 		final ExpressionResolver<KeyIsFilter, SQLExpression> SQL_RESOLVER = ExpressionResolver.create(KeyIsFilter.class,
 				SQLExpression.class, (kis, ctx) -> Optional.of(SQLExpression.create("keycode > " + kis.getValue())));
 
@@ -104,7 +104,7 @@ public class CustomExpressionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testQuerySort() {
+	void testQuerySort() {
 		List<Long> res = getDatastore().query().withExpressionResolver(StrKeySort.RESOLVER).target(NAMED_TARGET)
 				.sort(new StrKeySort()).list(KEY);
 		assertEquals(2, res.size());
@@ -112,7 +112,7 @@ public class CustomExpressionsTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testQuerySortExpression() {
+	void testQuerySortExpression() {
 		List<Long> res = getDatastore().query().withExpressionResolver(StrKeySort.SQL_RESOLVER).target(NAMED_TARGET)
 				.sort(new StrKeySort()).list(KEY);
 		assertEquals(2, res.size());

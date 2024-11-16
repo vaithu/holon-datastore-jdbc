@@ -18,20 +18,20 @@ package com.holonplatform.datastore.jdbc.test.suite;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_CODE;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TEST3_TEXT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
-
 import com.holonplatform.core.property.PropertyBox;
 
-public class DistinctTest extends AbstractJdbcDatastoreSuiteTest {
+import org.junit.jupiter.api.Test;
+
+class DistinctTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testDistinctSingle() {
+	void testDistinctSingle() {
 		inTransaction(() -> {
 
 			getDatastore().insert(TEST3,
@@ -53,7 +53,7 @@ public class DistinctTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testDistinctMultiple() {
+	void testDistinctMultiple() {
 		inTransaction(() -> {
 
 			getDatastore().insert(TEST3,

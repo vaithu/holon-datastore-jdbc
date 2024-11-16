@@ -95,7 +95,7 @@ public class JdbcSave extends AbstractSave {
 			final Optional<SQLPrimaryKey> primaryKey = context.resolve(getConfiguration(), SQLPrimaryKey.class,
 					context);
 
-			if (!primaryKey.isPresent()) {
+			if (primaryKey.isEmpty()) {
 				if (fallbackToInsert) {
 					LOGGER.warn("(Save operation) Cannot obtain the primary key for operation [" + getConfiguration()
 							+ "]: an INSERT operation will be performed by default");

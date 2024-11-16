@@ -31,22 +31,19 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TIME;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.TMS;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.VIRTUAL_STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.datastore.jdbc.test.data.TestEnum;
 import com.holonplatform.datastore.jdbc.test.data.TestSampleData;
 
-public class InsertTest extends AbstractJdbcDatastoreSuiteTest {
+class InsertTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testInsert() {
+	void testInsert() {
 
 		inTransaction(() -> {
 
@@ -78,7 +75,7 @@ public class InsertTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testInsertVirtual() {
+	void testInsertVirtual() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES_V).set(KEY, 301L).set(STR, "k301").set(NBOOL, true)
@@ -97,7 +94,7 @@ public class InsertTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testInsertDefaults() {
+	void testInsertDefaults() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES).set(KEY, 301L).set(STR, "k301").set(NBOOL, true)

@@ -15,9 +15,10 @@
  */
 package com.holonplatform.datastore.jdbc.test.suite;
 
-import java.util.function.Supplier;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Assert;
+import java.util.function.Supplier;
 
 import com.holonplatform.core.datastore.Datastore;
 import com.holonplatform.core.internal.Logger;
@@ -55,12 +56,12 @@ public abstract class AbstractJdbcDatastoreSuiteTest {
 	protected void expectedException(Class<? extends Throwable> exceptionClass, Runnable operation) {
 		try {
 			operation.run();
-			Assert.fail("Expected exception was not thrown");
+			fail("Expected exception was not thrown");
 		} catch (Exception e) {
-			Assert.assertNotNull(e);
+			assertNotNull(e);
 			if (!exceptionClass.isAssignableFrom(e.getClass())) {
 				e.printStackTrace();
-				Assert.fail("Expected exception: " + exceptionClass.getName() + " but was thrown: "
+				fail("Expected exception: " + exceptionClass.getName() + " but was thrown: "
 						+ e.getClass().getName());
 			}
 		}

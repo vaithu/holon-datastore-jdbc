@@ -17,18 +17,18 @@ package com.holonplatform.datastore.jdbc.test;
 
 import javax.sql.DataSource;
 
-import org.junit.BeforeClass;
-
 import com.holonplatform.datastore.jdbc.JdbcDatastore;
+
+import org.junit.jupiter.api.BeforeAll;
 import com.holonplatform.datastore.jdbc.test.config.DatabasePlatformCommodity;
 import com.holonplatform.datastore.jdbc.test.expression.KeyIsFilter;
 import com.holonplatform.datastore.jdbc.test.suite.AbstractJdbcDatastoreTestSuite;
 import com.holonplatform.jdbc.DataSourceBuilder;
 
-public class JdbcDatastoreH2UT extends AbstractJdbcDatastoreTestSuite {
+class JdbcDatastoreH2UT extends AbstractJdbcDatastoreTestSuite {
 
-	@BeforeClass
-	public static void initDatastore() {
+	@BeforeAll
+	static void initDatastore() {
 
 		final DataSource dataSource = DataSourceBuilder.builder()
 				.url("jdbc:h2:mem:datastore;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE").username("sa")

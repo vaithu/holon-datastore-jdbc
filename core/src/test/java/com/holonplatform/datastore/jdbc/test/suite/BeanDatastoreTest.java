@@ -17,10 +17,7 @@ package com.holonplatform.datastore.jdbc.test.suite;
 
 import static com.holonplatform.datastore.jdbc.test.data.TestDataBean.CODE;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataBean.PROPERTIES;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -36,9 +33,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-
 import com.holonplatform.core.beans.BeanPropertySet;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.beans.DataPath;
 import com.holonplatform.core.datastore.Datastore.OperationType;
 import com.holonplatform.core.datastore.beans.BeanDatastore;
@@ -56,7 +53,7 @@ import com.holonplatform.datastore.jdbc.test.data.TestDataBean;
 import com.holonplatform.datastore.jdbc.test.data.TestEnum;
 import com.holonplatform.datastore.jdbc.test.data.TestSampleData;
 
-public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
+class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 
 	private BeanDatastore beanDatastore;
 
@@ -78,7 +75,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	// ------- Tests
 
 	@Test
-	public void testRefresh() {
+	void testRefresh() {
 
 		TestDataBean value2 = getBeanDatastore().query(TestDataBean.class).filter(PROPERTIES.property("code").eq(2L))
 				.findOne().orElse(null);
@@ -118,7 +115,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testInsert() {
+	void testInsert() {
 
 		inTransaction(() -> {
 
@@ -158,7 +155,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testUpdate() {
+	void testUpdate() {
 		inTransaction(() -> {
 
 			TestDataBean value = getBeanDatastore().query(TestDataBean.class).filter(CODE.eq(1L)).findOne()
@@ -199,7 +196,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testSaveAsInsert() {
+	void testSaveAsInsert() {
 		inTransaction(() -> {
 
 			TestDataBean value = new TestDataBean();
@@ -239,7 +236,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testSaveAsUpdate() {
+	void testSaveAsUpdate() {
 		inTransaction(() -> {
 
 			TestDataBean value = new TestDataBean();
@@ -279,7 +276,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testDelete() {
+	void testDelete() {
 		inTransaction(() -> {
 
 			TestDataBean value = getBeanDatastore().query(TestDataBean.class).filter(CODE.eq(1L)).findOne()
@@ -295,7 +292,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkInsert() {
+	void testBulkInsert() {
 		inTransaction(() -> {
 
 			BeanOperationResult<?> result = getBeanDatastore().bulkInsert(TestDataBean.class)
@@ -318,7 +315,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkUpdate() {
+	void testBulkUpdate() {
 		inTransaction(() -> {
 
 			BeanOperationResult<?> result = getBeanDatastore().bulkUpdate(TestDataBean.class)
@@ -343,7 +340,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkUpdateNulls() {
+	void testBulkUpdateNulls() {
 		inTransaction(() -> {
 
 			BeanOperationResult<?> result = getBeanDatastore().bulkUpdate(TestDataBean.class).setNull("stringValue")
@@ -360,7 +357,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkDelete() {
+	void testBulkDelete() {
 		inTransaction(() -> {
 
 			BeanOperationResult<?> result = getBeanDatastore().bulkDelete(TestDataBean.class).filter(CODE.eq(1L))
@@ -372,7 +369,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkDeleteMulti() {
+	void testBulkDeleteMulti() {
 		inTransaction(() -> {
 
 			BeanOperationResult<?> result = getBeanDatastore().bulkDelete(TestDataBean.class).filter(CODE.loe(2L))
@@ -384,7 +381,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testSorts() {
+	void testSorts() {
 
 		final StringProperty STR = PROPERTIES.propertyString("stringValue");
 
@@ -425,7 +422,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testFilters() {
+	void testFilters() {
 
 		final StringProperty STR = PROPERTIES.propertyString("stringValue");
 		final PathProperty<Double> DBL = PROPERTIES.property("decv");
@@ -494,7 +491,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testDateAndTimes() {
+	void testDateAndTimes() {
 
 		final TemporalProperty<Date> DAT = PROPERTIES.propertyTemporal("dateValue", Date.class);
 		final TemporalProperty<Date> TMS = PROPERTIES.propertyTemporal("timestampValue", Date.class);
@@ -563,7 +560,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testTimeFilter() {
+	void testTimeFilter() {
 
 		final TemporalProperty<LocalTime> TIME = PROPERTIES.propertyTemporal("localTimeValue", LocalTime.class);
 
@@ -580,7 +577,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testLocalDateTimeWithTimestampFilter() {
+	void testLocalDateTimeWithTimestampFilter() {
 
 		final TemporalProperty<LocalDateTime> LTMS = PROPERTIES.propertyTemporal("localDateTimeValue",
 				LocalDateTime.class);
@@ -594,7 +591,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testRestrictions() {
+	void testRestrictions() {
 		List<String> str = getBeanDatastore().query(TestDataBean.class).restrict(1, 0).sort(CODE.asc()).stream()
 				.map(r -> r.getStringValue()).collect(Collectors.toList());
 		assertEquals(1, str.size());
@@ -607,7 +604,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testClobString() {
+	void testClobString() {
 
 		final BeanPropertySet<TestDataBeanClob1> PS = BeanPropertySet.create(TestDataBeanClob1.class);
 
@@ -652,7 +649,7 @@ public class BeanDatastoreTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testClobReader() {
+	void testClobReader() {
 
 		final BeanPropertySet<TestDataBeanClob2> PS = BeanPropertySet.create(TestDataBeanClob2.class);
 

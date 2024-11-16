@@ -22,20 +22,18 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NOPK_TXT;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES_NOID;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.holonplatform.core.datastore.Datastore.OperationResult;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.exceptions.DataAccessException;
 import com.holonplatform.core.property.PropertyBox;
 
-public class DeleteTest extends AbstractJdbcDatastoreSuiteTest {
+class DeleteTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testDelete() {
+	void testDelete() {
 		inTransaction(() -> {
 
 			PropertyBox value = getDatastore().query().target(NAMED_TARGET).filter(KEY.eq(1L)).findOne(PROPERTIES)
@@ -51,7 +49,7 @@ public class DeleteTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testDeleteUsingKey() {
+	void testDeleteUsingKey() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES).set(KEY, 1L).build();
@@ -65,7 +63,7 @@ public class DeleteTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testDeleteNoId() {
+	void testDeleteNoId() {
 		inTransaction(() -> {
 
 			PropertyBox value = PropertyBox.builder(PROPERTIES_NOID).set(KEY, 1L).build();
@@ -79,23 +77,27 @@ public class DeleteTest extends AbstractJdbcDatastoreSuiteTest {
 		});
 	}
 
-	@Test(expected = DataAccessException.class)
-	public void testDeleteMissingKey() {
-		inTransaction(() -> {
+	@Test
+	void testDeleteMissingKey() {
+		assertThrows(DataAccessException.class, () -> {
+			inTransaction(() -> {
 
-			PropertyBox value = PropertyBox.builder(PROPERTIES).set(STR, "test").build();
-			getDatastore().delete(NAMED_TARGET, value);
+				PropertyBox value = PropertyBox.builder(PROPERTIES).set(STR, "test").build();
+				getDatastore().delete(NAMED_TARGET, value);
 
+			});
 		});
 	}
 
-	@Test(expected = DataAccessException.class)
-	public void testDeleteMissingPk() {
-		inTransaction(() -> {
+	@Test
+	void testDeleteMissingPk() {
+		assertThrows(DataAccessException.class, () -> {
+			inTransaction(() -> {
 
-			PropertyBox value = PropertyBox.builder(NOPK_NMB, NOPK_TXT).set(NOPK_NMB, 1).set(NOPK_TXT, "x").build();
-			getDatastore().delete(NAMED_TARGET, value);
+				PropertyBox value = PropertyBox.builder(NOPK_NMB, NOPK_TXT).set(NOPK_NMB, 1).set(NOPK_TXT, "x").build();
+				getDatastore().delete(NAMED_TARGET, value);
 
+			});
 		});
 	}
 

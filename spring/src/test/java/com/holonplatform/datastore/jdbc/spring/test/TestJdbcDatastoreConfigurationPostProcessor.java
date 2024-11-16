@@ -25,15 +25,13 @@ import java.util.Optional;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,9 +50,8 @@ import com.holonplatform.jdbc.spring.SpringJdbcConnectionHandler;
 import com.holonplatform.spring.EnableDatastoreConfiguration;
 
 @Transactional
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestJdbcDatastoreConfigurationPostProcessor.Config.class)
-public class TestJdbcDatastoreConfigurationPostProcessor {
+@SpringJUnitConfig(classes = TestJdbcDatastoreConfigurationPostProcessor.Config.class)
+class TestJdbcDatastoreConfigurationPostProcessor {
 
 	@Configuration
 	@ComponentScan(basePackageClasses = TestConfigCommodityFactory.class)
@@ -81,7 +78,7 @@ public class TestJdbcDatastoreConfigurationPostProcessor {
 	private Datastore datastore;
 
 	@Test
-	public void testCommodity() {
+	void testCommodity() {
 		TestConfigCommodity tc = datastore.create(TestConfigCommodity.class);
 		assertNotNull(tc);
 
@@ -91,7 +88,7 @@ public class TestJdbcDatastoreConfigurationPostProcessor {
 	@Rollback
 	@Transactional
 	@Test
-	public void testResolvers() {
+	void testResolvers() {
 
 		datastore.insert(NAMED_TARGET, PropertyBox.builder(KEY, STR).set(KEY, 100L).set(STR, "test").build());
 		datastore.insert(NAMED_TARGET, PropertyBox.builder(KEY, STR).set(KEY, 101L).set(STR, "ztest").build());

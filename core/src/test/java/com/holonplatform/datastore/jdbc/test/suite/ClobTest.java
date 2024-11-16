@@ -22,27 +22,27 @@ import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TAR
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NBOOL;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.STR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Test;
-
 import com.holonplatform.core.exceptions.DataAccessException;
+
+import org.junit.jupiter.api.Test;
 import com.holonplatform.core.internal.utils.ConversionUtils;
 import com.holonplatform.core.property.PropertyBox;
 import com.holonplatform.core.property.PropertySet;
 
-public class ClobTest extends AbstractJdbcDatastoreSuiteTest {
+class ClobTest extends AbstractJdbcDatastoreSuiteTest {
 
 	private static final PropertySet<?> CLOB_SET_STR = PropertySet.of(PROPERTIES, CLOB_STR);
 	private static final PropertySet<?> CLOB_SET_RDR = PropertySet.of(PROPERTIES, CLOB_RDR);
 
 	@Test
-	public void testClobString() {
+	void testClobString() {
 		inTransaction(() -> {
 
 			// query
@@ -78,7 +78,7 @@ public class ClobTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testClobReader() {
+	void testClobReader() {
 		inTransaction(() -> {
 			try {
 				// query

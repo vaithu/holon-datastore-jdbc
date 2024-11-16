@@ -18,17 +18,17 @@ package com.holonplatform.datastore.jdbc.test.suite;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.KEY;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.NAMED_TARGET;
 import static com.holonplatform.datastore.jdbc.test.data.TestDataModel.PROPERTIES;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.holonplatform.core.datastore.Datastore.OperationResult;
 
-public class BulkDeleteTest extends AbstractJdbcDatastoreSuiteTest {
+import org.junit.jupiter.api.Test;
+
+class BulkDeleteTest extends AbstractJdbcDatastoreSuiteTest {
 
 	@Test
-	public void testBulkDelete() {
+	void testBulkDelete() {
 		inTransaction(() -> {
 
 			OperationResult result = getDatastore().bulkDelete(NAMED_TARGET).filter(KEY.eq(1L)).execute();
@@ -39,7 +39,7 @@ public class BulkDeleteTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkDeleteMulti() {
+	void testBulkDeleteMulti() {
 		inTransaction(() -> {
 
 			OperationResult result = getDatastore().bulkDelete(NAMED_TARGET).filter(KEY.loe(2L)).execute();
@@ -50,7 +50,7 @@ public class BulkDeleteTest extends AbstractJdbcDatastoreSuiteTest {
 	}
 
 	@Test
-	public void testBulkDeleteAll() {
+	void testBulkDeleteAll() {
 		inTransaction(() -> {
 
 			OperationResult result = getDatastore().bulkDelete(NAMED_TARGET).execute();

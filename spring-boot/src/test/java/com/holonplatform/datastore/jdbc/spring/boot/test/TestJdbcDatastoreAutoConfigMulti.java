@@ -31,7 +31,7 @@ import com.holonplatform.datastore.jdbc.JdbcDatastore;
 
 @SpringBootTest
 @ActiveProfiles("p3")
-public class TestJdbcDatastoreAutoConfigMulti {
+class TestJdbcDatastoreAutoConfigMulti {
 
 	@Configuration
 	@EnableAutoConfiguration
@@ -48,7 +48,7 @@ public class TestJdbcDatastoreAutoConfigMulti {
 	private JdbcDatastore datastore2;
 
 	@Test
-	public void testDataContext1() {
+	void testDataContext1() {
 		assertNotNull(datastore1);
 
 		long count = datastore1.query().target(DataTarget.named("testm1")).count();
@@ -56,7 +56,7 @@ public class TestJdbcDatastoreAutoConfigMulti {
 	}
 
 	@Test
-	public void testDataContext2() {
+	void testDataContext2() {
 		assertNotNull(datastore2);
 
 		long count = datastore2.query().target(DataTarget.named("testm2")).count();

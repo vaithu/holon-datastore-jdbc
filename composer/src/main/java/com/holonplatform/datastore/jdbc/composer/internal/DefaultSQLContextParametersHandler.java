@@ -76,7 +76,7 @@ public class DefaultSQLContextParametersHandler implements SQLContextParametersH
 	 * @return Parameter name
 	 */
 	protected String generateParameterName(int index) {
-		return ":[" + String.format("%04d", index) + "]";
+		return ":[" + "%04d".formatted(index) + "]";
 	}
 
 }

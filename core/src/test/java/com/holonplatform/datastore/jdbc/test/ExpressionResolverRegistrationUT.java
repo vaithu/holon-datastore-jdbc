@@ -29,19 +29,19 @@ import com.holonplatform.datastore.jdbc.JdbcDatastore;
 import com.holonplatform.datastore.jdbc.test.config.KeyOne;
 import com.holonplatform.jdbc.DataSourceBuilder;
 
-public class ExpressionResolverRegistrationUT {
+class ExpressionResolverRegistrationUT {
 
 	private Datastore datastore;
 
 	@BeforeEach
-	public void initDatastore() {
+	void initDatastore() {
 		DataSource dataSource = DataSourceBuilder.builder().url("jdbc:h2:mem:rslv").username("sa")
 				.withInitScriptResource("h2/schema.sql").withInitScriptResource("h2/data.sql").build();
 		datastore = JdbcDatastore.builder().dataSource(dataSource).build();
 	}
 
 	@Test
-	public void testResolver() {
+	void testResolver() {
 
 		String str = datastore.query(NAMED_TARGET).filter(new KeyOne()).findOne(STR).orElse(null);
 
