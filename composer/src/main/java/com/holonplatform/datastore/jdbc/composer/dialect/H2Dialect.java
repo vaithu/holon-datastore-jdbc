@@ -17,12 +17,9 @@ package com.holonplatform.datastore.jdbc.composer.dialect;
 
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.TimeZone;
-
-import org.h2.api.TimestampWithTimeZone;
-import org.h2.value.ValueTimestampTimeZone;
 
 import com.holonplatform.core.TypedExpression;
 import com.holonplatform.core.exceptions.DataAccessException;
@@ -194,10 +191,10 @@ public class H2Dialect implements SQLDialect {
 		public Object processValue(SQLExecutionContext context, TypedExpression<?> expression, Object value)
 				throws SQLException {
 			if (value != null) {
-				// H2 TimestampWithTimeZone
-				if (TimestampWithTimeZone.class.isAssignableFrom(value.getClass())) {
-					final ValueTimestampTimeZone tsv = ValueTimestampTimeZone.get((TimestampWithTimeZone) value);
-					return tsv.getTimestamp(TimeZone.getDefault());
+				// H2 2.x: TIMESTAMP WITH TIME ZONE columns are returned as OffsetDateTime.
+				// Convert to java.sql.Timestamp for compatibility with the datastore layer.
+				if (value instanceof OffsetDateTime odt) {
+					return java.sql.Timestamp.from(odt.toInstant());
 				}
 			}
 			return value;

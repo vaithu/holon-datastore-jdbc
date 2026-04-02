@@ -39,21 +39,6 @@
 		</plugins>
 	</build>
 
-	<dependencyManagement>
-		<dependencies>
-
-			<!-- Holon Spring platform -->
-			<dependency>
-				<groupId>com.holon-platform.core</groupId>
-				<artifactId>holon-bom-platform</artifactId>
-				<version>${holon.core.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 
 		<!-- Spring integration -->
@@ -91,11 +76,10 @@
 			<artifactId>spring-context</artifactId>
 		</dependency>
 
-		<!-- ByteBuddy -->
+		<!-- ByteBuddy – version managed by spring-boot-dependencies BOM -->
 		<dependency>
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy</artifactId>
-			<version>${bytebuddy.version}</version>
 		</dependency>
 
 		<!-- Test -->
@@ -107,19 +91,16 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>${hikaricp.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>${junit.verion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>${h2.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

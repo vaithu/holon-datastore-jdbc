@@ -75,11 +75,10 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- JPA API -->
+        <!-- JPA API – version managed by spring-boot-dependencies BOM -->
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>${jakarta.persistence}</version>
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>

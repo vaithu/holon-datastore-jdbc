@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.holon-platform</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1.6</version>
+		<version>1.1.7</version>
 	</parent>
 
 	<groupId>com.holon-platform.jdbc</groupId>
@@ -55,52 +55,42 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+		<!-- Spring Boot version – drives all SB/Spring Framework dependency versions -->
+		<spring.boot.version>4.0.4</spring.boot.version>
+
 		<!-- Holon Core -->
 		<holon.core.version>5.5.1-SNAPSHOT</holon.core.version>
 
 		<!-- Holon JDBC -->
 		<holon.jdbc.version>5.5.3-SNAPSHOT</holon.jdbc.version>
 
-		<!-- ByteBuddy -->
-		<bytebuddy.version>1.14.9</bytebuddy.version>
-
-		<!-- HikariCP (test) -->
-		<hikaricp.version>5.0.1</hikaricp.version>
-
 		<!-- Test JPA bean processors -->
 		<holon.jpa.version>5.5.1-SNAPSHOT</holon.jpa.version>
 
-		<jakarta.persistence>3.2.0</jakarta.persistence>
+		<!--
+		  Versions below are managed by the spring-boot-dependencies BOM (imported in
+		  dependencyManagement):  byte-buddy, HikariCP, h2, hsqldb, derby, sqlite-jdbc,
+		  jakarta.persistence-api, oracle ojdbc11, junit-jupiter, junit:junit.
+		  No explicit properties are needed here for those artifacts.
+		-->
 
-		<junit.verion>5.11.2</junit.verion>
+		<!-- Test / integration-test database drivers NOT covered by Spring Boot BOM -->
 
-		<!-- Test/dialects databases -->
-
-		<!-- H2 -->
-		<h2.version>1.4.200</h2.version>
-		<!-- HSQL -->
-		<hsql.version>2.5.1</hsql.version>
-		<!-- Derby -->
-		<derby.version>10.14.2.0</derby.version>
-		<!-- MySQL -->
+		<!-- MySQL (old groupId mysql:mysql-connector-java – retained for legacy profiles) -->
 		<mysql-driver.version>5.1.49</mysql-driver.version>
 		<mysql-driver8.version>8.0.20</mysql-driver8.version>
-		<!-- PostgreSQL -->
+		<!-- PostgreSQL (older driver versions kept for version-specific IT profiles) -->
 		<postgre.version>9.4.1212</postgre.version>
 		<postgre10.version>42.2.2</postgre10.version>
-		<!-- Oracle -->
-		<oracle-driver.version>23.2.0.0</oracle-driver.version>
-		<!-- SQLServer -->
+		<!-- SQLServer – jre17 variant; SB BOM ships jre11, so we keep this explicit -->
 		<sqlserver-driver.version>11.2.3.jre17</sqlserver-driver.version>
-		<!-- MariaDB -->
+		<!-- MariaDB (older driver versions kept for version-specific IT profiles) -->
 		<mariadb-driver.version>1.5.9</mariadb-driver.version>
 		<mariadb-driver2.version>2.2.5</mariadb-driver2.version>
-		<!-- DB2 -->
+		<!-- DB2 (not in Spring Boot BOM) -->
 		<db2-driver.version>10.5</db2-driver.version>
-		<!-- Informix -->
+		<!-- Informix (not in Spring Boot BOM) -->
 		<informix-driver.version>4.10.8.1</informix-driver.version>
-		<!-- SQLite -->
-		<sqlite-driver.version>3.20.0</sqlite-driver.version>
 		<!-- HANA -->
 <!--		<hana-driver.version>2.18.13</hana-driver.version>-->
 
@@ -119,12 +109,27 @@
 
 	<dependencyManagement>
 		<dependencies>
+
+			<!-- Spring Boot BOM – manages HikariCP, H2, HSQL, Derby, ByteBuddy,
+			     SQLite, Oracle ojdbc11, Jakarta Persistence, JUnit, and more -->
 			<dependency>
-				<groupId>org.junit.vintage</groupId>
-				<artifactId>junit-vintage-engine</artifactId>
-				<version>${junit.jupiter.engine.version}</version>
-				<scope>test</scope>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
+
+			<!-- Holon platform BOM – manages Spring Framework, Spring Boot, Spring
+			     Security, and Holon-specific artifacts (consolidated from submodules) -->
+			<dependency>
+				<groupId>com.holon-platform.core</groupId>
+				<artifactId>holon-bom-platform</artifactId>
+				<version>${holon.core.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -258,3 +263,4 @@
 	</build>
 
 </project>
+

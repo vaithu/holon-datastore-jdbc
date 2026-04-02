@@ -36,19 +36,17 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Oracle driver and data types -->
+		<!-- Oracle driver and data types – version managed by spring-boot-dependencies BOM -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc11</artifactId>
-			<version>${oracle-driver.version}</version>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- H2 driver -->
+		<!-- H2 driver – version managed by spring-boot-dependencies BOM -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>${h2.version}</version>
 			<optional>true</optional>
 		</dependency>
 
