@@ -1,4 +1,5 @@
 com.holonplatform.datastore.jdbc.spring.boot.JdbcDatastoreAutoConfiguration
 com.holonplatform.datastore.jdbc.spring.boot.config.VirtualThreadDataSourceAutoConfiguration
+com.holonplatform.datastore.jdbc.spring.boot.config.QueryAuditingAutoConfiguration
 org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
