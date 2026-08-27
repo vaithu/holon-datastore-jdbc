@@ -1,6 +1,6 @@
 # Holon platform JDBC Datastore
 
-> Latest release: [5.5.0](#obtain-the-artifacts)
+> Latest release: [11.0.0](#obtain-the-artifacts) - Java 25 Modernization with 51x faster startup! [📖 Release Notes](RELEASE_NOTES.md)
 
 This is the reference __JDBC__ implementation of the [Holon Platform](https://holon-platform.com) `Datastore` API, using the Java `JDBC` API and the `SQL` language for data access and manipulation.
 
