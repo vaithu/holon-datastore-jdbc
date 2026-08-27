@@ -37,7 +37,7 @@ import com.holonplatform.datastore.jdbc.internal.support.JdbcOperationUtils;
  *
  * @since 5.1.0
  */
-public class JdbcDelete extends AbstractDelete {
+public final class JdbcDelete extends AbstractDelete {
 
 	private static final long serialVersionUID = 4155821525871792639L;
 

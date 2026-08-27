@@ -45,7 +45,7 @@ import com.holonplatform.datastore.jdbc.internal.support.DialectPathMatcher;
  *
  * @since 5.1.0
  */
-public class JdbcInsert extends AbstractInsert {
+public final class JdbcInsert extends AbstractInsert {
 
 	private static final long serialVersionUID = -3547948214277724242L;
 

@@ -37,7 +37,7 @@ import com.holonplatform.datastore.jdbc.internal.support.JdbcOperationUtils;
  *
  * @since 5.1.0
  */
-public class JdbcUpdate extends AbstractUpdate {
+public final class JdbcUpdate extends AbstractUpdate {
 
 	private static final long serialVersionUID = 7143507117624707335L;
 

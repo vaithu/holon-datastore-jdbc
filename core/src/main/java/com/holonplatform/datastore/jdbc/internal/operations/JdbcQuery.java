@@ -50,7 +50,7 @@ import com.holonplatform.datastore.jdbc.internal.support.ResultSetSQLResult;
  *
  * @since 5.0.0
  */
-public class JdbcQuery implements LockQueryAdapter<QueryConfiguration> {
+public final class JdbcQuery implements LockQueryAdapter<QueryConfiguration> {
 
 	// Commodity factory
 	@SuppressWarnings("serial")
