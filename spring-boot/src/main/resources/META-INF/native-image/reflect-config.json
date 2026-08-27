@@ -1,0 +1,85 @@
+{
+  "bundles": [],
+  "resources": {
+    "includes": [
+      {
+        "pattern": ".*\\.properties$"
+      },
+      {
+        "pattern": ".*META-INF/spring.*"
+      }
+    ],
+    "excludes": []
+  },
+  "reflection": [
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.DefaultJdbcDatastore",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.JdbcDatastore",
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.tx.DefaultJdbcTransaction",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.tx.StructuredConcurrencyTransaction",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.concurrency.VirtualThreadDataSourceAdapter",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.spring.boot.config.VirtualThreadDataSourceAutoConfiguration",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.spring.boot.config.VirtualThreadProperties",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.dialects.PostgreSQLDialect",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.dialects.MySQLDialect",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.dialects.OracleDialect",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.dialects.SqlServerDialect",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.dialects.H2Dialect",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    }
+  ],
+  "serialization": [
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.model.SQLStatement"
+    },
+    {
+      "name": "com.holonplatform.datastore.jdbc.internal.model.QueryResultPage"
+    }
+  ],
+  "proxyDefinitions": [],
+  "jni": []
+}
