@@ -134,9 +134,11 @@ See [Holon Platform code structure and conventions](https://github.com/holon-pla
 
 ### System requirements
 
-The Holon Platform is built using __Java 8__, so you need a JRE/JDK version 8 or above to use the platform artifacts.
+The Holon Platform JDBC Datastore is built using __Java 25__ and requires **Java 25 or above** to use this release (v11.0.0+). This modernized version leverages Java 25 features including Virtual Threads, Structured Concurrency, Records, and sealed classes for optimal performance and runtime efficiency.
 
-A JDBC driver which supports the __JDBC API version 4.x__ or above is reccomended to use all the functionalities of the JDBC Datastore.
+For legacy versions supporting Java 8+, use release v10.0.0 or earlier.
+
+A JDBC driver which supports the __JDBC API version 4.x__ or above is recommended to use all the functionalities of the JDBC Datastore.
 
 ### Releases
 
