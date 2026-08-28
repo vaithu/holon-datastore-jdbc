@@ -765,14 +765,31 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Project Reactor for reactive programming -->
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-core</artifactId>
+		</dependency>
 
-		<!--<dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+			<!-- Spring Data Commons for Pageable, Page, Slice support -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-commons</artifactId>
+			</dependency>
+
+			<!--<dependency>
             <groupId>com.sap.hana</groupId>
             <artifactId>jdbc</artifactId>
             <version>${hana-driver.version}</version>
             <scope>test</scope>
         </dependency>-->
 
-	</dependencies>
+		</dependencies>
 
 </project>

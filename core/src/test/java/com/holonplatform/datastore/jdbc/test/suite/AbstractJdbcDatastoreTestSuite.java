@@ -16,6 +16,11 @@
 package com.holonplatform.datastore.jdbc.test.suite;
 
 import com.holonplatform.core.datastore.Datastore;
+import com.holonplatform.datastore.jdbc.internal.cache.CacheableQueryIntegrationTest;
+import com.holonplatform.datastore.jdbc.internal.cache.QueryResultCacheTest;
+import com.holonplatform.datastore.jdbc.internal.patterns.PatternMatchingTest;
+import com.holonplatform.datastore.jdbc.internal.reactive.ReactorJdbcTest;
+import com.holonplatform.datastore.jdbc.internal.springdata.SortMapperUT;
 import com.holonplatform.datastore.jdbc.test.suite.database.H2Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -27,7 +32,9 @@ import org.junit.runners.Suite;
         BulkUpdateTest.class, BulkDeleteTest.class, BulkUpdateAliasTest.class, BulkDeleteAliasTest.class,
         AggregationFunctionsTest.class, StringFunctionsTest.class, TemporalFunctionsTest.class,
         DataTargetResolverTest.class, DataMappingTest.class, CustomExpressionsTest.class, BeanDatastoreTest.class,
-        BeanDatastoreJpaTest.class, DistinctTest.class, LockTest.class, H2Test.class})
+        BeanDatastoreJpaTest.class, DistinctTest.class, LockTest.class, AsyncQueryTest.class, ReactorJdbcTest.class, 
+        QueryResultCacheTest.class, CacheableQueryIntegrationTest.class, PatternMatchingTest.class, 
+        SortMapperUT.class, H2Test.class})
 //, HSQLTest.class, DerbyTest.class,
 //		MySQLTest.class, MariaDBTest.class, PostgreSQLTest.class, SQLServerTest.class, SQLiteTest.class,
 //		OracleTest.class
