@@ -37,7 +37,10 @@ import java.util.logging.Logger;
  * Usage:
  * <pre>
  * List<MyEntity> data = ...;
- * ParallelBatchExecutor executor = new ParallelBatchExecutor(4, 100);
+ * ParallelBatchExecutor<MyEntity> executor = ParallelBatchExecutor.builder()
+ *     .degreeOfParallelism(4)
+ *     .partitionSize(100)
+ *     .build();
  * ParallelBatchResult result = executor.execute(data, entity -> {
  *     datastore.insert(entity).execute();
  * });
@@ -55,12 +58,42 @@ public final class ParallelBatchExecutor<T> {
 	private final ExecutorService executor;
 
 	/**
-	 * Create a ParallelBatchExecutor with default settings.
-	 * 
-	 * @param degreeOfParallelism number of parallel threads
-	 * @param partitionSize size of each partition batch
+	 * Get a builder to create a ParallelBatchExecutor instance.
+	 * @return executor builder
 	 */
-	public ParallelBatchExecutor(int degreeOfParallelism, int partitionSize) {
+	public static Builder builder() {
+		return new DefaultBuilder();
+	}
+
+	/**
+	 * ParallelBatchExecutor builder interface.
+	 */
+	public interface Builder {
+		/**
+		 * Set the degree of parallelism.
+		 * @param degreeOfParallelism number of parallel threads (must be >= 1)
+		 * @return this builder
+		 */
+		Builder degreeOfParallelism(int degreeOfParallelism);
+
+		/**
+		 * Set the partition size.
+		 * @param partitionSize size of each partition batch (must be >= 1)
+		 * @return this builder
+		 */
+		Builder partitionSize(int partitionSize);
+
+		/**
+		 * Build the ParallelBatchExecutor.
+		 * @return configured executor instance
+		 */
+		<T> ParallelBatchExecutor<T> build();
+	}
+
+	/**
+	 * Internal constructor used by builder.
+	 */
+	private ParallelBatchExecutor(int degreeOfParallelism, int partitionSize, boolean internal) {
 		if (degreeOfParallelism < 1) {
 			throw new IllegalArgumentException("degreeOfParallelism must be >= 1");
 		}
@@ -220,5 +253,30 @@ public final class ParallelBatchExecutor<T> {
 	 */
 	public int getPartitionSize() {
 		return partitionSize;
+	}
+
+	/**
+	 * Default builder implementation for ParallelBatchExecutor.
+	 */
+	private static final class DefaultBuilder implements Builder {
+		private int degreeOfParallelism = 4;
+		private int partitionSize = 100;
+
+		@Override
+		public Builder degreeOfParallelism(int degreeOfParallelism) {
+			this.degreeOfParallelism = degreeOfParallelism;
+			return this;
+		}
+
+		@Override
+		public Builder partitionSize(int partitionSize) {
+			this.partitionSize = partitionSize;
+			return this;
+		}
+
+		@Override
+		public <T> ParallelBatchExecutor<T> build() {
+			return new ParallelBatchExecutor<>(degreeOfParallelism, partitionSize, true);
+		}
 	}
 }

@@ -13,6 +13,7 @@
 package com.holonplatform.datastore.jdbc.internal.concurrency;
 
 import java.sql.Connection;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
@@ -24,8 +25,9 @@ import javax.sql.DataSource;
  * 
  * Usage:
  * <pre>
- * VirtualThreadDataSourceAdapter adapter = 
- *     new VirtualThreadDataSourceAdapter(dataSource, 30000);
+ * VirtualThreadDataSourceAdapter adapter = VirtualThreadDataSourceAdapter.builder(dataSource)
+ *     .maxConnectionWaitMs(30000)
+ *     .build();
  * 
  * Connection conn = adapter.getConnection();  // Runs on virtual thread
  * 
@@ -43,21 +45,40 @@ public class VirtualThreadDataSourceAdapter implements AutoCloseable {
     private volatile boolean closed;
 
     /**
-     * Creates a Virtual Thread executor for connection acquisition.
-     * 
-     * Each call to getConnection() runs on a virtual thread, allowing
-     * efficient handling of thousands of concurrent blocking I/O operations.
-     * 
-     * @param dataSource the underlying DataSource to wrap
-     * @param maxConnectionWaitMs timeout for connection acquisition in milliseconds
+     * Get a builder to create a VirtualThreadDataSourceAdapter instance.
+     * @param dataSource the underlying DataSource to wrap (not null)
+     * @return adapter builder
      */
-    public VirtualThreadDataSourceAdapter(DataSource dataSource, int maxConnectionWaitMs) {
-        this.dataSource = dataSource;
+    public static Builder builder(DataSource dataSource) {
+        return new DefaultBuilder(dataSource);
+    }
+
+    /**
+     * VirtualThreadDataSourceAdapter builder interface.
+     */
+    public interface Builder {
+        /**
+         * Set the maximum time to wait for connection acquisition.
+         * @param maxConnectionWaitMs timeout in milliseconds
+         * @return this builder
+         */
+        Builder maxConnectionWaitMs(int maxConnectionWaitMs);
+
+        /**
+         * Build the VirtualThreadDataSourceAdapter.
+         * @return configured adapter instance
+         */
+        VirtualThreadDataSourceAdapter build();
+    }
+
+    /**
+     * Internal constructor used by builder.
+     */
+    private VirtualThreadDataSourceAdapter(DataSource dataSource, int maxConnectionWaitMs, boolean internal) {
+        this.dataSource = Objects.requireNonNull(dataSource, "dataSource must not be null");
         this.maxConnectionWaitMs = maxConnectionWaitMs;
         this.closed = false;
         
-        // Create an unbounded virtual thread executor
-        // Virtual threads are cheap to create and don't exhaust platform thread pools
         this.virtualExecutor = Executors.newVirtualThreadPerTaskExecutor();
     }
 
@@ -154,5 +175,28 @@ public class VirtualThreadDataSourceAdapter implements AutoCloseable {
     @Override
     public void close() {
         shutdown();
+    }
+
+    /**
+     * Default builder implementation for VirtualThreadDataSourceAdapter.
+     */
+    private static final class DefaultBuilder implements Builder {
+        private final DataSource dataSource;
+        private int maxConnectionWaitMs = 30000;
+
+        DefaultBuilder(DataSource dataSource) {
+            this.dataSource = Objects.requireNonNull(dataSource, "dataSource must not be null");
+        }
+
+        @Override
+        public Builder maxConnectionWaitMs(int maxConnectionWaitMs) {
+            this.maxConnectionWaitMs = maxConnectionWaitMs;
+            return this;
+        }
+
+        @Override
+        public VirtualThreadDataSourceAdapter build() {
+            return new VirtualThreadDataSourceAdapter(dataSource, maxConnectionWaitMs, true);
+        }
     }
 }

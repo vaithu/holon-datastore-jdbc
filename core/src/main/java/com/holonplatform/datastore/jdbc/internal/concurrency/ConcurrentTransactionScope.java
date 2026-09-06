@@ -41,7 +41,10 @@ import java.util.logging.Logger;
  * 
  * Example usage:
  * <pre>
- * try (ConcurrentTransactionScope scope = new ConcurrentTransactionScope(datastore, 4)) {
+ * try (ConcurrentTransactionScope scope = ConcurrentTransactionScope.builder()
+ *     .degreeOfParallelism(4)
+ *     .timeoutMs(60000)
+ *     .build()) {
  *     scope.submit("Task 1", () -> datastore.insert(entity1).execute());
  *     scope.submit("Task 2", () -> datastore.insert(entity2).execute());
  *     scope.submit("Task 3", () -> datastore.update(entity3).execute());
@@ -64,6 +67,39 @@ public final class ConcurrentTransactionScope implements AutoCloseable {
 	private final long timeoutMs;
 
 	/**
+	 * Get a builder to create a ConcurrentTransactionScope instance.
+	 * @return scope builder
+	 */
+	public static Builder builder() {
+		return new DefaultBuilder();
+	}
+
+	/**
+	 * ConcurrentTransactionScope builder interface.
+	 */
+	public interface Builder {
+		/**
+		 * Set the degree of parallelism.
+		 * @param degreeOfParallelism number of concurrent tasks (must be >= 1)
+		 * @return this builder
+		 */
+		Builder degreeOfParallelism(int degreeOfParallelism);
+
+		/**
+		 * Set the timeout in milliseconds.
+		 * @param timeoutMs timeout for all tasks (must be >= 1)
+		 * @return this builder
+		 */
+		Builder timeoutMs(long timeoutMs);
+
+		/**
+		 * Build the ConcurrentTransactionScope.
+		 * @return configured scope instance
+		 */
+		ConcurrentTransactionScope build();
+	}
+
+	/**
 	 * Record representing a single task in the scope.
 	 */
 	private static final class Task<T> {
@@ -83,21 +119,9 @@ public final class ConcurrentTransactionScope implements AutoCloseable {
 	}
 
 	/**
-	 * Create a concurrent transaction scope with default settings.
-	 * 
-	 * @param degreeOfParallelism number of concurrent tasks
+	 * Internal constructor used by builder.
 	 */
-	public ConcurrentTransactionScope(int degreeOfParallelism) {
-		this(degreeOfParallelism, 30000); // 30 second default timeout
-	}
-
-	/**
-	 * Create a concurrent transaction scope with timeout.
-	 * 
-	 * @param degreeOfParallelism number of concurrent tasks
-	 * @param timeoutMs timeout in milliseconds
-	 */
-	public ConcurrentTransactionScope(int degreeOfParallelism, long timeoutMs) {
+	private ConcurrentTransactionScope(int degreeOfParallelism, long timeoutMs, boolean internal) {
 		if (degreeOfParallelism < 1) {
 			throw new IllegalArgumentException("degreeOfParallelism must be >= 1");
 		}
@@ -296,6 +320,31 @@ public final class ConcurrentTransactionScope implements AutoCloseable {
 					getFailureCount(),
 					failedTasks.keySet()
 			);
+		}
+	}
+
+	/**
+	 * Default builder implementation for ConcurrentTransactionScope.
+	 */
+	private static final class DefaultBuilder implements Builder {
+		private int degreeOfParallelism = 4;
+		private long timeoutMs = 30000;
+
+		@Override
+		public Builder degreeOfParallelism(int degreeOfParallelism) {
+			this.degreeOfParallelism = degreeOfParallelism;
+			return this;
+		}
+
+		@Override
+		public Builder timeoutMs(long timeoutMs) {
+			this.timeoutMs = timeoutMs;
+			return this;
+		}
+
+		@Override
+		public ConcurrentTransactionScope build() {
+			return new ConcurrentTransactionScope(degreeOfParallelism, timeoutMs, true);
 		}
 	}
 }

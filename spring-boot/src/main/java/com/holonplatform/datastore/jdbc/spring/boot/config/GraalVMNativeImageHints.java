@@ -55,11 +55,16 @@ public class GraalVMNativeImageHints implements RuntimeHintsRegistrar {
                 MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
                 MemberCategory.INVOKE_PUBLIC_METHODS);
         
-        // Note: StructuredConcurrencyTransaction registered in its own module
+        // Note: ConcurrentTransactionScope already registered for multi-transaction workflows
         
         // Register Virtual Thread support
         hints.reflection()
             .registerType(com.holonplatform.datastore.jdbc.internal.concurrency.VirtualThreadDataSourceAdapter.class,
+                MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
+                MemberCategory.INVOKE_PUBLIC_METHODS);
+        
+        hints.reflection()
+            .registerType(com.holonplatform.datastore.jdbc.internal.VirtualThreadConnectionPool.class,
                 MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
                 MemberCategory.INVOKE_PUBLIC_METHODS);
         

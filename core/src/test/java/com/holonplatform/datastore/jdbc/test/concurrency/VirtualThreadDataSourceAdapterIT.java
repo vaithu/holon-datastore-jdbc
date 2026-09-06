@@ -52,7 +52,9 @@ public class VirtualThreadDataSourceAdapterIT {
         config.setMinimumIdle(2);
         
         hikariDataSource = new HikariDataSource(config);
-        adapter = new VirtualThreadDataSourceAdapter(hikariDataSource, 5000);
+        adapter = VirtualThreadDataSourceAdapter.builder(hikariDataSource)
+            .maxConnectionWaitMs(5000)
+            .build();
     }
 
     @AfterEach

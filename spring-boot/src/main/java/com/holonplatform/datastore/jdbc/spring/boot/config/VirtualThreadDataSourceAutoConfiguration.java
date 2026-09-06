@@ -66,10 +66,9 @@ public class VirtualThreadDataSourceAutoConfiguration {
     public VirtualThreadDataSourceAdapter virtualThreadDataSourceAdapter(
             DataSource dataSource,
             VirtualThreadProperties props) {
-        return new VirtualThreadDataSourceAdapter(
-            dataSource,
-            props.getMaxConnectionWaitMs()
-        );
+        return VirtualThreadDataSourceAdapter.builder(dataSource)
+            .maxConnectionWaitMs(props.getMaxConnectionWaitMs())
+            .build();
     }
 
     /**

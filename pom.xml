@@ -9,7 +9,7 @@
 
 	<groupId>com.holon-platform.jdbc</groupId>
 	<artifactId>holon-datastore-jdbc-root</artifactId>
-	<version>11.2.0</version>
+	<version>12.0.0</version>
 
 	<packaging>pom</packaging>
 
@@ -58,14 +58,17 @@
 		<!-- Spring Boot version – drives all SB/Spring Framework dependency versions -->
 		<spring.boot.version>4.1.0</spring.boot.version>
 
+        <!-- Custom version variable -->
+        <holon.version>12.0.0</holon.version>
+
 		<!-- Holon Core -->
-		<holon.core.version>10.0.0</holon.core.version>
+		<holon.core.version>${holon.version}</holon.core.version>
 
 		<!-- Holon JDBC -->
-		<holon.jdbc.version>10.0.0</holon.jdbc.version>
+		<holon.jdbc.version>${holon.version}</holon.jdbc.version>
 
 		<!-- Test JPA bean processors -->
-		<holon.jpa.version>10.0.0</holon.jpa.version>
+		<holon.jpa.version>${holon.version}</holon.jpa.version>
 
 		<!--
 		  Versions below are managed by the spring-boot-dependencies BOM (imported in
@@ -148,6 +151,13 @@
 					<configuration>
 						<release>${maven.compiler.release}</release>
 						<parameters>true</parameters>
+						<!-- JPMS hybrid mode: Allow automatic modules from dependencies -->
+						<compilerArgs>
+							<!-- Enable preview features for Java 25 -->
+							<arg>--enable-preview</arg>
+							<!-- Allow automatic module names from JARs without module-info.java -->
+							<arg>--add-modules=ALL-SYSTEM</arg>
+						</compilerArgs>
 					</configuration>
 				</plugin>
 				<plugin>
